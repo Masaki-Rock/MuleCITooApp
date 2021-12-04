@@ -3,6 +3,7 @@ package mule.ci.tool.app.api;
 import org.junit.Test;
 
 import mule.ci.tool.app.util.AppException;
+import mule.ci.tool.app.util.Const;
 
 public class CloudhubAPICallerTest {
 
@@ -14,41 +15,47 @@ public class CloudhubAPICallerTest {
 		caller.findApplication();
 	}
 	
-	@Test
+//	@Test
+	public void saveApplication() throws AppException {
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.saveApplication();
+	}
+	
+//	@Test
 	public void updateApplication() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.updateApplication("account-v1");
+		caller.updateApplication(Const.DOMAIN);
 	}
 
-	@Test
+//	@Test
 	public void findRuntimeAlert() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
 		caller.findRuntimeAlert();
 	}
 	
-	@Test
+//	@Test
 	public void saveRuntimeAlert() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
 		caller.saveRuntimeAlert("event-threshold-exceeded");
 	}
 	
-	@Test
+//	@Test
 	public void deleteRuntimeAlert() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
 		caller.deleteRuntimeAlert("5424fce6-b84c-4d9a-b840-429c83c36ee4");
 	}
 
-	@Test
+//	@Test
 	public void saveAllRuntimeAlert() throws AppException {
 		
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.saveAllRuntimeAlert();
+		caller.saveRuntimeAlerts();
 	}
 	
-	@Test
+//	@Test
 	public void deleteAllRuntimeAlert() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.deleteAllRuntimeAlert();
+		caller.deleteRuntimeAlerts();
 	}
 	
 	
@@ -56,7 +63,7 @@ public class CloudhubAPICallerTest {
 	 * アカウント検索機能テスト
 	 * @throws AppException アプリケーション例外
 	 */
-	@Test
+//	@Test
 	public void findAcount() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();
 		caller.findAccount();

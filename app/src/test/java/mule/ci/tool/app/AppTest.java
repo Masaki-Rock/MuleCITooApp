@@ -9,34 +9,61 @@ import mule.ci.tool.app.util.AppException;
 
 public class AppTest {
 
-	@Test
-	public void initAPIInstance() throws AppException {
-//		App.initAPIInstance();
+//	private static final Logger log = LoggerFactory.getLogger(AppTest.class);
+
+//	@Test
+	public void saveAPIInstance() throws AppException {
+		App.saveAPIInstance();
 //        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
 	}
 	
 	@Test
+	public void existApplication() throws AppException {
+		App.existApplication();
+	}
+	
+//	@Test
+	public void init() throws AppException {
+		App.init();
+	}
+	
+//	@Test
+	public void deleteAll() throws AppException {
+		App.deleteAll();
+	}
+	
+//	@Test
 	public void deleteAPIInstance() throws AppException {
-//		App.deleteAPIInstance();
+		App.deleteAPIInstance();
 	}
 	
-	@Test
-	public void initPolicy() throws AppException {
-		App.initPolicy();
+//	@Test
+	public void savePolicies() throws AppException {
+		App.savePolicies();
 	}
 	
-	@Test
-	public void deletePolicy() throws AppException {
-		App.deletePolicy();
+//	@Test
+	public void deletePolicies() throws AppException {
+		App.deletePolicies();
+	}
+	
+//	@Test
+	public void saveApplication() throws AppException {
+		App.saveApplication();
+	}
+	
+//	@Test
+	public void updateApplication() throws AppException {
+		App.updateApplication();
 	}
 
-	@Test
-	public void initRuntimeAlert() throws AppException {
-		App.initRuntimeAlert();
+//	@Test
+	public void saveRuntimeAlerts() throws AppException {
+		App.saveRuntimeAlerts();
 	}
 	
-	@Test
-	public void deleteRuntimeAlert() throws AppException {
-		App.deleteRuntimeAlert();
+//	@Test
+	public void deleteRuntimeAlerts() throws AppException {
+		App.deleteRuntimeAlerts();
 	}
 }

@@ -59,6 +59,8 @@ public class Const {
 	public static String CONFIG_YAML_FILE_PATH = "config-dev.yaml";
 	
 	public static String PROJECT_YAML_FILE_PATH = "project-dev.yaml";
+	
+	public static String APPLICATION_FILE_PATH;
 
 	public static String ENV;
 	
@@ -77,6 +79,12 @@ public class Const {
 	public static String ASSET_ID;
 
 	public static String API_INSTANCE_LABEL;
+	
+	public static String DOMAIN;
+	
+	public static String API_ID_KEY;
+	
+	public static Integer API_ID;
 	
 	public static String RUNTIME_VERSION;
 	
@@ -132,6 +140,11 @@ public class Const {
 		Map<String, Object> env = (Map<String, Object>) org.get("enviromentIds");
 		ORGANIZATION_ID = (String) org.get("organizationId");
 		DEV_ENVIRONMENT_ID = (String) env.get("deveper");
+		
+		// プロジェクトコンフィグファイル
+		Map<String, Object> proj = (Map<String, Object>) commonConf.get("project");
+		Map<String, Object> conf = (Map<String, Object>) proj.get("config");
+		PROJECT_YAML_FILE_PATH = (String) conf.get("path");
 
 		// プロジェクト毎の個別設定
 		Yaml project = new Yaml();
@@ -155,6 +168,9 @@ public class Const {
 
 		// ランタイム
 		Map<String, Object> runtime = (Map<String, Object>) projectConf.get("runtime");
+		DOMAIN = (String) runtime.get("domain");
+		APPLICATION_FILE_PATH = (String) runtime.get("filename");
+		API_ID_KEY = (String) runtime.get("apiIDkey");
 		RUNTIME_VERSION = (String) runtime.get("runtimeVersion");
 		Map<String, Object> worker = (Map<String, Object>) runtime.get("worker");
 		VCORE = (String) worker.get("vCore");

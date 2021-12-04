@@ -5,13 +5,16 @@ apiInstance:
   apiInstanceLabel: Development
 
 runtime:
-  runtimeVersion: 4.3,0
+  domain: account-v1
+  filename: account-v1.jar
+  apiIDkey: autodiscovery.api_id
+  runtimeVersion: 4.3.0
   worker:
     vCore: "0.2"
     workers: 1
     region: us-east-1
   properties:
-    autodiscovery.api_id: 17469184
+    autodiscovery.api_id: "17469184"
     anypoint.platform.client_id: 4758bdefaa45445f9f66dcb624f4e53b
     anypoint.platform.client_secre: 779Acc635fC840749b5C3C63B863Ecc8
     env: st

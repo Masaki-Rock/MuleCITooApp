@@ -83,6 +83,7 @@ public class APIManagerAPICaller {
 
 	/**
 	 * APIインスタンス更新機能
+	 * @param environmentApiId APIインスタンスID
 	 * @param assetVersion アセットバージョン
 	 * @return 更新結果
 	 * @throws AppException アプリケーション例外
@@ -116,7 +117,7 @@ public class APIManagerAPICaller {
 
 	/**
 	 * APIインスタンス削除処理
-	 * @param environmentApiId APIインスタンス
+	 * @param environmentApiId APIインスタンスID
 	 * @return 削除結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -145,8 +146,7 @@ public class APIManagerAPICaller {
 
 	/**
 	 * SLA層検索機能
-	 * 
-	 * @param environmentApiId API ID
+	 * @param environmentApiId APIインスタンスID
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -163,7 +163,7 @@ public class APIManagerAPICaller {
 
 	/**
 	 * SLA層登録機能
-	 * @param environmentApiId 環境ID
+	 * @param environmentApiId APIインスタンスID
 	 * @param name SLA名
 	 * @param description 説明
 	 * @param autoApprove 自動承認フラグ
@@ -172,7 +172,7 @@ public class APIManagerAPICaller {
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public TierResponse saveTier(Integer environmentApiId, String name,
+	public TierResponse saveSLATier(Integer environmentApiId, String name,
 			String description, Boolean autoApprove, 
 			Integer maximumRequests, Integer timePeriodInMilliSeconds) throws AppException {
 
@@ -190,16 +190,16 @@ public class APIManagerAPICaller {
 	
 	/**
 	 * SLA層登録機能
-	 * @param environmentApiId 環境ID
+	 * @param environmentApiId APIインスタンスID
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public void saveAllTier() throws AppException {
+	public void saveSLATiers() throws AppException {
 
 		APIAssetsResponse param = getAPIInstance();
 		for (Map<String, Object> tier: Const.TIERS) {
 
-			saveTier(param.getId(),
+			saveSLATier(param.getId(),
 					(String) tier.get("name"),
 					(String) tier.get("description"),
 					(Boolean) tier.get("autoApprove"),
@@ -208,18 +208,14 @@ public class APIManagerAPICaller {
 		}
 	}
 
-	public void updateTier(Integer environmentApiId) throws AppException {
-
-	}
-
 	/**
 	 * SLA層削除機能
-	 * @param environmentApiId APIインスタンス
+	 * @param environmentApiId APIインスタンスID
 	 * @param tierId SLA層ID
 	 * @return 削除結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public Boolean deleteTier(Integer environmentApiId, Integer tierId) throws AppException {
+	public Boolean deleteSLATier(Integer environmentApiId, Integer tierId) throws AppException {
 
 		String path = String.format(Const.TIERS_END_POINT, Const.ORGANIZATION_ID, Const.DEV_ENVIRONMENT_ID,
 				environmentApiId, "/", tierId);
@@ -236,18 +232,21 @@ public class APIManagerAPICaller {
 	 * SLA層削除機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public void deleteAllTier() throws AppException {
+	public void deleteSLATiers() throws AppException {
 
 		APIAssetsResponse param = getAPIInstance();
 		TiersResponse response = findTier(param.getId());
+		if (response.getTiers() == null) {
+			return;
+		}
 		for(Map<String, Object> tier: response.getTiers()) {
-			deleteTier(param.getId(),(Integer) tier.get("id"));
+			deleteSLATier(param.getId(),(Integer) tier.get("id"));
 		}
 	}
 
 	/**
 	 * ポリシー検索機能
-	 * @param environmentApiId APIID
+	 * @param environmentApiId APIインスタンスID
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -292,16 +291,12 @@ public class APIManagerAPICaller {
 	 * ポリシー登録機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public void saveAllPolicy() throws AppException {
+	public void savePolicies() throws AppException {
 
 		APIAssetsResponse param = getAPIInstance();
 		for (String policyName : Const.POLICIES.keySet()) {
 			savePolicy(param.getId(), policyName);
 		}
-	}
-
-	public void updatePolicy() throws AppException {
-
 	}
 
 	/**
@@ -328,10 +323,13 @@ public class APIManagerAPICaller {
 	 * ポリシー削除機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public void deleteAllPolicy() throws AppException {
+	public void deletePolicies() throws AppException {
 
 		APIAssetsResponse param = getAPIInstance();
 		PoliciesResponse response = findPolicy(param.getId());
+		if (response.getPolicies() == null) {
+			return;
+		}
 		for (Map<String, Object> policy: response.getPolicies()) {
 			deletePolicy(param.getId(),(Integer) policy.get("policyId"));
 		}
@@ -382,17 +380,13 @@ public class APIManagerAPICaller {
 	 * アラート登録機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public void saveAllAPIAlert() throws AppException {
+	public void saveAlerts() throws AppException {
 
 		APIAssetsResponse api = getAPIInstance();
 		PoliciesResponse policy = findPolicy(api.getId());
 		for (String alertType: Const.ALERTS) {
 			saveAPIAlert(api.getId(), alertType, policy.get(alertType));
 		}
-	}
-	
-	public void updateAPIAlert(String environmentApiId) throws AppException {
-
 	}
 
 	/**
@@ -420,10 +414,13 @@ public class APIManagerAPICaller {
 	 * @param alertId アラートID
 	 * @throws AppException アプリケーション例外
 	 */
-	public void deleteAllAPIAlert() throws AppException {
+	public void deleteAlerts() throws AppException {
 
 		APIAssetsResponse param = getAPIInstance();
 		APIAlertResponse[] alerts = findAPIAlert(param.getId());
+		if (alerts == null) {
+			return;
+		}
 		for (APIAlertResponse alert: alerts) {
 			Boolean flg = deleteAPIAlert(param.getId(), alert.getId());
 			if (!flg) {
@@ -432,6 +429,12 @@ public class APIManagerAPICaller {
 		}
 	}
 
+	/**
+	 * JSON形式ログ出力機能
+	 * @param marker マーカー 例： "Application Response {}" 
+	 * @param res 出力オブジェクト
+	 * @throws AppException アプリケーション例外
+	 */
 	public static void log(String marker, Object res) throws AppException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);

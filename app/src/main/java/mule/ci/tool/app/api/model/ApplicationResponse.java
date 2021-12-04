@@ -28,4 +28,12 @@ public class ApplicationResponse {
     
     @JsonProperty("trackingSettings")
 	private Map<String, Object> trackingSettings;
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 }

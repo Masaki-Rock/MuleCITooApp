@@ -3,86 +3,377 @@
  */
 package mule.ci.tool.app;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import mule.ci.tool.app.api.APIManagerAPICaller;
 import mule.ci.tool.app.api.CloudhubAPICaller;
+import mule.ci.tool.app.api.model.APIAssetsResponse;
+import mule.ci.tool.app.api.model.ApplicationResponse;
 import mule.ci.tool.app.util.AppException;
+import mule.ci.tool.app.util.Const;
 
 public class App {
 
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 
 	/**
+	 * メイン処理
+	 * @param args 引数
+	 */
+	public static void main(String[] args) {
+
+		try {
+			CommandLine line = setMenue(args);
+			taskControler(line);
+		} catch (AppException e) {
+			log.error(e.getMessage());
+		}
+	}
+
+	/**
+	 * サービスメニュー設定処理
+	 * @param args 引数
+	 * @return 実行コマンド解析結果
+	 * @throws AppException アプリケーション例外
+	 */
+	private static CommandLine setMenue(String[] args) throws AppException {
+
+		CommandLineParser parser = new DefaultParser();
+		CommandLine line = null;
+		try {
+			line = parser.parse(setOptions(), args);
+		} catch (ParseException e) {
+			throw new AppException(e);
+		}
+		return line;
+	}
+	
+	/**
+	 * 提供サービス
+	 * @return サービス群
+	 */
+	private static Options setOptions() {
+		Options options = new Options();
+		options.addOption("all", false, "Perform all tasks.");
+		options.addOption("save", true, "to register. <all|apiInstance|slaTiers|policies|alerts|application|runtimeAlerts>");
+		options.addOption("update", true, "to update. <all|apiInstance|application>");
+		options.addOption("delete", true, "to delete. <all|apiInstance|slaTiers|policies|alerts|application|runtimeAlerts>");
+		options.addOption("config", true, "Specify the location of the project folder.");
+		options.addOption("h", false, "Show all menue.");
+		return options;
+	}
+
+	/**
+	 * サービス実行制御
+	 * @param line 実行コマンド
+	 * @throws AppException アプリケーション例外
+	 */
+	private static void taskControler(CommandLine line) throws AppException {
+
+		if (line.hasOption("config")) {
+			log.info("setting config start!!");
+			String projectpath = line.getOptionValue("config");
+			Path projectfile = Paths.get(projectpath + "project-dev.yaml");
+			if (!projectfile.toFile().exists()) {
+				throw new AppException(String.format("Project file does not exist. {}", projectfile.toString()));
+			}
+			Const.PROJECT_YAML_FILE_PATH = projectfile.toString();
+			log.info("setting config finished!!");
+		}
+		if (line.hasOption("delete")) {
+			log.info("delete process start!!");
+			String taskname = line.getOptionValue("delete");
+			if (StringUtils.equals("all", taskname)) {
+				deleteAll();
+			}
+			if (StringUtils.equals("runtimeAlerts", taskname)) {
+				deleteRuntimeAlerts();
+			}
+			if (StringUtils.equals("application", taskname)) {
+				deleteApplication();
+			}
+			if (StringUtils.equals("alerts", taskname)) {
+				deleteAlerts();
+			}
+			if (StringUtils.equals("policies", taskname)) {
+				deletePolicies();
+			}
+			if (StringUtils.equals("slaTiers", taskname)) {
+				deleteSLATiers();
+			}
+			if (StringUtils.equals("apiInstance", taskname)) {
+				deleteAPIInstance();
+			}
+			log.info("delete process finished!!");
+		}
+		if (line.hasOption("save")) {
+			log.info("save process start!!");
+			String taskname = line.getOptionValue("save");
+			if (StringUtils.equals("all", taskname)) {
+				saveRuntimeAlerts();
+				saveAPIInstance();
+				saveSLATiers();
+				savePolicies();
+				saveAlerts();
+				saveApplication();
+			}
+			if (StringUtils.equals("runtimeAlert", taskname)) {
+				saveRuntimeAlerts();
+			}
+			if (StringUtils.equals("application", taskname)) {
+				saveApplication();
+			}
+			if (StringUtils.equals("alerts", taskname)) {
+				saveAlerts();
+			}
+			if (StringUtils.equals("policies", taskname)) {
+				savePolicies();
+			}
+			if (StringUtils.equals("tiers", taskname)) {
+				saveSLATiers();
+			}
+			if (StringUtils.equals("apiInstance", taskname)) {
+				saveAPIInstance();
+			}
+			log.info("save process finished!!");
+		}
+		if (line.hasOption("update")) {
+			log.info("update process start!!");
+			String taskname = line.getOptionValue("update");
+			if (StringUtils.equals("all", taskname)) {
+				updateApplication();
+				updateAPIInstance();
+			}
+			if (StringUtils.equals("application", taskname)) {
+				updateApplication();
+			}
+			if (StringUtils.equals("apiInstance", taskname)) {
+				updateAPIInstance();
+			}
+			log.info("save process finished!!");
+		}
+		if (line.hasOption("all")) {
+			log.info("all process start!!");
+			init();
+			log.info("save process finished!!");
+		}
+		if (line.hasOption("h")) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("Mule CD Tool", setOptions());
+		}
+	}
+	
+	/**
+	 * 初期メソッド
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void init() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		APIAssetsResponse response = caller.getAPIInstance();
+		if (!response.exist()) {
+			caller.saveAPIInstance();
+		}
+		deleteSLATiers();
+		saveSLATiers();
+		deletePolicies();
+		savePolicies();
+		deleteAlerts();
+		saveAlerts();
+		deleteRuntimeAlerts();
+		saveRuntimeAlerts();
+		if (existApplication()) {
+			updateApplication();
+		} else {
+			saveApplication();
+		}
+	}
+	
+	/**
+	 * 全削除処理
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deleteAll() throws AppException {
+
+		deleteRuntimeAlerts();
+		deleteApplication();
+		deleteAPIInstance();
+	}
+	
+	/**
 	 * APIインスタンス登録機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public static void initAPIInstance() throws AppException {
-		
+	public static void saveAPIInstance() throws AppException {
+
 		APIManagerAPICaller caller = new APIManagerAPICaller();
 		caller.saveAPIInstance();
 	}
 	
 	/**
-	 * APIインスタンス登録機能
+	 * APIインスタンス更新機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public static void deleteAPIInstance() throws AppException {
-		
+	public static void updateAPIInstance() throws AppException {
+
 		APIManagerAPICaller caller = new APIManagerAPICaller();
-		caller.deleteAPIInstance();
+		caller.updateAPIInstance();
 	}
-	
-	/**
-	 * ポリシー・アラート機能
-	 * @throws AppException アプリケーション例外
-	 */
-	public static void initPolicy() throws AppException {
-		
-		APIManagerAPICaller caller = new APIManagerAPICaller();
-		caller.saveAllTier();
-		caller.saveAllPolicy();
-		caller.saveAllAPIAlert();
-	}
-	
+
 	/**
 	 * APIインスタンス削除機能
 	 * @throws AppException アプリケーション例外
 	 */
-	public static void deletePolicy() throws AppException {
-		
+	public static void deleteAPIInstance() throws AppException {
+
 		APIManagerAPICaller caller = new APIManagerAPICaller();
-		caller.deleteAllAPIAlert();
-		caller.deleteAllPolicy();
-		caller.deleteAllTier();
-	}
-	
-	/**
-	 * ランタイムアラート登録機能
-	 */
-	public static void initRuntimeAlert() throws AppException {
-		
-		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.saveAllRuntimeAlert();
-	}
-	
-	/**
-	 * ランタイムアラート登録機能
-	 */
-	public static void deleteRuntimeAlert() throws AppException {
-		
-		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.deleteAllRuntimeAlert();
+		caller.deleteAPIInstance();
 	}
 
-	public static void main(String[] args) {
-		log.info("Main Process Start!!");
-		try {
-			initPolicy();
-		} catch (AppException e) {
-			log.error(e.getMessage());
+	/**
+	 * SLA層登録昨日
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void saveSLATiers() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.saveSLATiers();
+	}
+	
+	/**
+	 * SLA層削除機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deleteSLATiers() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.deleteSLATiers();
+	}
+	
+	/**
+	 * ポリシー登録機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void savePolicies() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.savePolicies();
+	}
+	
+	/**
+	 * ポリシー削除機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deletePolicies() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.deletePolicies();
+	}
+
+	/**
+	 * アラート登録機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void saveAlerts() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.saveAlerts();
+	}
+	
+	/**
+	 * 全アラート削除機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deleteAlerts() throws AppException {
+
+		APIManagerAPICaller caller = new APIManagerAPICaller();
+		caller.deleteAlerts();
+	}
+
+	/**
+	 * アプリケーション存在チェック機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static Boolean existApplication() throws AppException {
+
+		if (Const.API_ID == null) {
+			APIManagerAPICaller mcaller = new APIManagerAPICaller();
+			mcaller.getAPIInstance();
 		}
-		log.info("Main Process Finished!!");
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		ApplicationResponse application = caller.findApplication(Const.DOMAIN);
+		if (application == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * アプリケーション登録機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void saveApplication() throws AppException {
+
+		if (Const.API_ID == null) {
+			APIManagerAPICaller mcaller = new APIManagerAPICaller();
+			mcaller.getAPIInstance();
+		}
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.saveApplication();
+	}
+	
+	/**
+	 * アプリケーション更新機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void updateApplication() throws AppException {
+
+		if (Const.API_ID == null) {
+			APIManagerAPICaller mcaller = new APIManagerAPICaller();
+			mcaller.getAPIInstance();
+		}
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.updateApplication(Const.DOMAIN);
+	}
+	
+	/**
+	 * アプリケーション削除機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deleteApplication() throws AppException {
+
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.deleteApplication(Const.DOMAIN);
+	}
+
+	/**
+	 * ランタイムアラート登録機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void saveRuntimeAlerts() throws AppException {
+
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.saveRuntimeAlerts();
+	}
+
+	/**
+	 * ランタイムアラート削除機能
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void deleteRuntimeAlerts() throws AppException {
+
+		CloudhubAPICaller caller = new CloudhubAPICaller();
+		caller.deleteRuntimeAlerts();
 	}
 }

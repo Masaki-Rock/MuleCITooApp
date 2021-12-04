@@ -9,7 +9,7 @@
 
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
     id 'application'
     id 'eclipse'
 }
@@ -18,6 +18,9 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+
+sourceCompatibility = 8
+targetCompatibility = 8
 
 dependencies {
     // Use JUnit test framework.
@@ -35,9 +38,19 @@ dependencies {
     implementation 'org.yaml:snakeyaml:1.16'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.sun.jersey:jersey-client:1.19.4'
+    implementation 'com.sun.jersey.contribs:jersey-multipart:1.19.4'
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'mule.ci.tool.app.App'
+}
+
+jar {
+    duplicatesStrategy = 'include'
+    manifest {
+      attributes 'Main-Class': 'mule.ci.tool.app.App'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }

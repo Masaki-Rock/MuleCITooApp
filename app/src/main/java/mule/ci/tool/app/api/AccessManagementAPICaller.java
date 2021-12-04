@@ -11,14 +11,16 @@ import mule.ci.tool.app.util.AppException;
 import mule.ci.tool.app.util.Const;
 import mule.ci.tool.app.util.HttpClientUtil;
 
+/**
+ * 認証やユーザ検索関連クラス
+ * @author masaki.kawaguchi
+ */
 public class AccessManagementAPICaller {
-
-	private CommonResponse users;
 
 	/**
 	 * ユーザ検索機能
 	 * @return 検索結果
-	 * @throws AppException アプリケーションエラー
+	 * @throws AppException アプリケーション例外
 	 */
 	public CommonResponse findUser() throws AppException {
 		
@@ -41,10 +43,13 @@ public class AccessManagementAPICaller {
 		return res;
 	}
 	
+	private CommonResponse users;
+	
 	/**
 	 * メンバー検索機能
+	 * @param mailAddress メールアドレス
 	 * @return メンバーID結果
-	 * @throws AppException アプリケーションエラー
+	 * @throws AppException アプリケーション例外
 	 */
 	public String findMember(String mailAddress) throws AppException {
 		
@@ -65,7 +70,7 @@ public class AccessManagementAPICaller {
 	/**
 	 * クライアント認証機能
 	 * @return 認証結果
-	 * @throws AppException アプリケーションエラー
+	 * @throws AppException アプリケーション例外
 	 */
 	public ClientCredential getToken() throws AppException {
 		
@@ -77,7 +82,7 @@ public class AccessManagementAPICaller {
 	/**
 	 * アクセストークン取得機能
 	 * @return アクセストークン
-	 * @throws AppException アプリケーションエラー
+	 * @throws AppException アプリケーション例外
 	 */
     public String getAccessToken() throws AppException {
     	

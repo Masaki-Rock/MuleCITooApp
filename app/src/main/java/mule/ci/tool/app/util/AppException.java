@@ -1,6 +1,7 @@
 package mule.ci.tool.app.util;
 
 public class AppException extends Exception {
+
     static final long serialVersionUID = -3387516993124229948L;
 
     /**

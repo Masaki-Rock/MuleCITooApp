@@ -83,6 +83,16 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-client/1.19.4/481aba49fca8b4c6d919c4ca86bf9097e56b433/jersey-client-1.19.4-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-client/1.19.4/9b1f3cf3fdd02d313018f1a67c42106e6ce9f60d/jersey-client-1.19.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey.contribs/jersey-multipart/1.19.4/8ef1b1043c65f8dc9a4f22f5e3dd124101bb779a/jersey-multipart-1.19.4-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey.contribs/jersey-multipart/1.19.4/df7633959a623957f82eac0c081e13fb9df9a76b/jersey-multipart-1.19.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1d064e61aad6c51cc77f9b59dc2cccc78e792f5a/failureaccess-1.0.1-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
@@ -129,6 +139,21 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.11/bce4ba84fd527950e35040b20a991c63e90e2850/commons-codec-1.11-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.11/3acb4705652e16236558f0f4f2192cc33c3bd189/commons-codec-1.11.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-core/1.19.4/e304b20bd0dfd07bb2afa90363b1faffb963bd4e/jersey-core-1.19.4-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-core/1.19.4/21c5319c82ca29705715b315553a16f11b16655e/jersey-core-1.19.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/org.jvnet.mimepull/mimepull/1.9.3/8abb9e0b24317725c51ac905d1face261054fceb/mimepull-1.9.3-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/org.jvnet.mimepull/mimepull/1.9.3/c55096ff89a27e22c2e081371d0570ac19cc6788/mimepull-1.9.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/javax.ws.rs/jsr311-api/1.1.1/bcc4b7b569ef8bb9b82e48cf23b5aaac29a4fb4e/jsr311-api-1.1.1-sources.jar" kind="lib" path="C:/Users/masaki.kawaguchi/.gradle/caches/modules-2/files-2.1/javax.ws.rs/jsr311-api/1.1.1/59033da2a1afd56af1ac576750a8d0b1830d59e6/jsr311-api-1.1.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>

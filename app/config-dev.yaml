@@ -10,3 +10,7 @@ organization:
     integration:
     staging:
     production:
+
+project:
+  config:
+    path: project-dev.yaml

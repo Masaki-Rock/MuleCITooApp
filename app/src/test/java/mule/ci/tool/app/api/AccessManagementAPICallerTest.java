@@ -1,6 +1,5 @@
 package mule.ci.tool.app.api;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,19 +9,19 @@ public class AccessManagementAPICallerTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(AccessManagementAPICallerTest.class);
 	
-	@Test
+//	@Test
 	public void findUser() throws AppException {
 		AccessManagementAPICaller caller = new AccessManagementAPICaller();
 		caller.findUser();
 	}
 	
-	@Test
+//	@Test
 	public void findMember() throws AppException {
 		AccessManagementAPICaller caller = new AccessManagementAPICaller();
 		caller.findMember();
 	}
 	
-	@Test
+//	@Test
 	public void findMemberBymail() throws AppException {
 		AccessManagementAPICaller caller = new AccessManagementAPICaller();
 		String id = caller.findMember("masaki.kawaguchi@accenture.com");

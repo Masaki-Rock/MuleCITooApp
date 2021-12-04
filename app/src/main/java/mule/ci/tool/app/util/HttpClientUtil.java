@@ -1,6 +1,9 @@
 package mule.ci.tool.app.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +30,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.multipart.MultiPart;
+import com.sun.jersey.multipart.impl.MultiPartWriter;
 
 import mule.ci.tool.app.api.AccessManagementAPICaller;
 
@@ -36,6 +46,7 @@ public class HttpClientUtil {
 
 	/**
 	 * RESTAPI送信処理
+	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
 	 * @param body     リクエストボディー
@@ -49,6 +60,7 @@ public class HttpClientUtil {
 
 	/**
 	 * CloudHubAPI用RESTAPI送信処理
+	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
 	 * @param body     リクエストボディー
@@ -59,16 +71,18 @@ public class HttpClientUtil {
 
 		return sendRequestForJson(urlParam, method, body, makeAccessTokenHeaderforCloudHubAPI());
 	}
-	
+
 	/**
 	 * CloudHubAPI用RESTAPI送信処理
+	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
 	 * @param body     リクエストボディー
 	 * @return レスポンスボディー
 	 * @throws AppException アプリケーション例外
 	 */
-	public static String sendRequestForMultipartAndCloudHubAPI(String urlParam, String method, String body, String boundary) throws AppException {
+	public static String sendRequestForMultipartAndCloudHubAPI(String urlParam, String method, String body,
+			String boundary) throws AppException {
 
 		return sendRequestForMutipart(urlParam, method, body, makeAccessTokenHeaderforCloudHubAPI(), boundary);
 	}
@@ -91,6 +105,7 @@ public class HttpClientUtil {
 
 	/**
 	 * RESTAPI送信処理
+	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
 	 * @param body     リクエストボディー
@@ -143,9 +158,10 @@ public class HttpClientUtil {
 		log.debug("statusLine. {}", res);
 		return res;
 	}
-	
+
 	/**
 	 * RESTAPI送信処理
+	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
 	 * @param body     リクエストボディー
@@ -153,8 +169,8 @@ public class HttpClientUtil {
 	 * @return レスポンスボディー
 	 * @throws AppException アプリケーション例外
 	 */
-	public static String sendRequestForMutipart(String urlParam, String method, String body, Map<String, String> headers, String boundary)
-			throws AppException {
+	public static String sendRequestForMutipart(String urlParam, String method, String body,
+			Map<String, String> headers, String boundary) throws AppException {
 		StringEntity entity = null;
 		if (body != null) {
 			entity = new StringEntity(body, "UTF-8");
@@ -164,10 +180,11 @@ public class HttpClientUtil {
 		log.debug("headers. {}", headers);
 		log.debug("request body. {}", body);
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000)
-				.setConnectionRequestTimeout(10000).build();
+		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(120000).setSocketTimeout(120000)
+				.setConnectionRequestTimeout(120000).build();
 		HttpUriRequest httpUriRequest = RequestBuilder.create(method).setConfig(requestConfig)
-				.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary).setEntity(entity).setUri(urlParam).build();
+				.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary).setEntity(entity)
+				.setUri(urlParam).build();
 		if (headers != null) {
 			for (Map.Entry<String, String> header : headers.entrySet()) {
 				httpUriRequest.setHeader(header.getKey(), header.getValue());
@@ -197,6 +214,59 @@ public class HttpClientUtil {
 		res = response.getStatusLine().toString().trim().split(" ")[1];
 		log.debug("statusLine. {}", res);
 		return res;
+	}
+	
+	public static String sendRequestForMultipart(String urlParam, String method, MultiPart multiPart) throws AppException {
+		
+		// リクエスト送信
+		log.debug("target path. {}　: {}", method, urlParam);
+		ClientConfig config = new DefaultClientConfig();
+		config.getClasses().add(MultiPartWriter.class);
+		Client client = Client.create(config);
+		WebResource resource = client.resource(urlParam);
+		ClientResponse response = null;
+		if (StringUtils.equals(Const.POST, method)) {
+			response = resource.type("multipart/form-data")
+					.header("Authorization", "Bearer " + new AccessManagementAPICaller().getAccessToken())
+					.header("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID)
+					.header("X-ANYPNT-ENV-ID", Const.DEV_ENVIRONMENT_ID)
+					.post(ClientResponse.class, multiPart);
+		}
+		if (StringUtils.equals(Const.PUT, method)) {
+			response = resource.type("multipart/form-data")
+					.header("Authorization", "Bearer " + new AccessManagementAPICaller().getAccessToken())
+					.header("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID)
+					.header("X-ANYPNT-ENV-ID", Const.DEV_ENVIRONMENT_ID)
+					.put(ClientResponse.class, multiPart);
+		}
+		String res = HttpClientUtil.getStringFromInputStream(response.getEntityInputStream());
+		log.debug("response body. {}", format(res));
+		client.destroy();
+		
+		return res;
+	}
+	
+	public static String getStringFromInputStream(InputStream is) {
+		BufferedReader br = null;
+		final StringBuilder sb = new StringBuilder();
+		String line;
+		try {
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -253,24 +323,8 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * マルチパート変換処理
-	 * @param param リクエスト
-	 * @param boundary バウンダリー
-	 * @return マルチパート形式リクエスト
-	 * @throws AppException アプリケーション例外
-	 */
-	public static String toMultipart(Object param, String boundary) throws AppException {
-	
-		String body = "--" + boundary + "\r\n";
-		body += "Content-Disposition: form-data; name=\"appInfoJson\"\r\n";
-		body += "Content-Type: application/json\r\n\r\n";
-		body += toJson(param);
-		body += "\r\n--" + boundary + "--";
-		return body;
-	}
-	
-	/**
 	 * JSON変換機能
+	 * 
 	 * @param body オブジェクト
 	 * @return JSONデータ
 	 * @throws AppException アプリケーション例外
