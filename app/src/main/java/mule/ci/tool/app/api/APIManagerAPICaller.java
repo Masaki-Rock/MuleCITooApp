@@ -32,9 +32,9 @@ public class APIManagerAPICaller {
 	private static final Logger log = LoggerFactory.getLogger(APIManagerAPICaller.class);
 
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIAssetsResponse getAPIInstance() throws AppException {
 
@@ -48,12 +48,12 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXì¬‹@”\
-	 * @param groupId ƒOƒ‹[ƒvID
-	 * @param assetId ƒAƒZƒbƒgID
-	 * @param version ƒo[ƒWƒ‡ƒ“
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆæ©Ÿèƒ½
+	 * @param groupId ã‚°ãƒ«ãƒ¼ãƒ—ID
+	 * @param assetId ã‚¢ã‚»ãƒƒãƒˆID
+	 * @param version ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIInstanceResponse saveAPIInstance(String groupId, String assetId, String version) throws AppException {
 
@@ -69,9 +69,9 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXì¬‹@”\
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆæ©Ÿèƒ½
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIInstanceResponse saveAPIInstance() throws AppException {
 
@@ -82,11 +82,11 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXXV‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param assetVersion ƒAƒZƒbƒgƒo[ƒWƒ‡ƒ“
-	 * @return XVŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ›´æ–°æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param assetVersion ã‚¢ã‚»ãƒƒãƒˆãƒãƒ¼ã‚¸ãƒ§ãƒ³
+	 * @return æ›´æ–°çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIInstanceResponse updateAPIInstance(Integer environmentApiId, String assetVersion) throws AppException {
 
@@ -103,9 +103,9 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXXV‹@”\
-	 * @return XVŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ›´æ–°æ©Ÿèƒ½
+	 * @return æ›´æ–°çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIInstanceResponse updateAPIInstance() throws AppException {
 
@@ -116,10 +116,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXíœˆ—
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤å‡¦ç†
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deleteAPIInstance(Integer environmentApiId) throws AppException {
 		
@@ -135,9 +135,9 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXíœˆ—
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤å‡¦ç†
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void deleteAPIInstance() throws AppException {
 		APIAssetsResponse api = getAPIInstance();
@@ -145,10 +145,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * SLA‘wŒŸõ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤æ¤œç´¢æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public TiersResponse findTier(Integer environmentApiId) throws AppException {
 
@@ -162,15 +162,15 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * SLA‘w“o˜^‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param name SLA–¼
-	 * @param description à–¾
-	 * @param autoApprove ©“®³”Fƒtƒ‰ƒO
-	 * @param maximumRequests ó•t‰Â”\‚ÈƒŠƒNƒGƒXƒgŒ”
-	 * @param timePeriodInMilliSeconds ó•tŠúŠÔ
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤ç™»éŒ²æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param name SLAå
+	 * @param description èª¬æ˜
+	 * @param autoApprove è‡ªå‹•æ‰¿èªãƒ•ãƒ©ã‚°
+	 * @param maximumRequests å—ä»˜å¯èƒ½ãªãƒªã‚¯ã‚¨ã‚¹ãƒˆä»¶æ•°
+	 * @param timePeriodInMilliSeconds å—ä»˜æœŸé–“
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public TierResponse saveSLATier(Integer environmentApiId, String name,
 			String description, Boolean autoApprove, 
@@ -189,10 +189,10 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * SLA‘w“o˜^‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤ç™»éŒ²æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void saveSLATiers() throws AppException {
 
@@ -209,11 +209,11 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * SLA‘wíœ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param tierId SLA‘wID
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤å‰Šé™¤æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param tierId SLAå±¤ID
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deleteSLATier(Integer environmentApiId, Integer tierId) throws AppException {
 
@@ -229,8 +229,8 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * SLA‘wíœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void deleteSLATiers() throws AppException {
 
@@ -245,10 +245,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒ|ƒŠƒV[ŒŸõ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼æ¤œç´¢æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public PoliciesResponse findPolicy(Integer environmentApiId) throws AppException {
 
@@ -264,11 +264,11 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒ|ƒŠƒV[“o˜^‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param policyName ƒ|ƒŠƒV[–¼
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼ç™»éŒ²æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param policyName ãƒãƒªã‚·ãƒ¼å
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public PolicyResponse savePolicy(Integer environmentApiId,
 			String policyName) throws AppException {
@@ -288,8 +288,8 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * ƒ|ƒŠƒV[“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼ç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void savePolicies() throws AppException {
 
@@ -300,11 +300,11 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒ|ƒŠƒV[íœ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒX
-	 * @param policyId ƒ|ƒŠƒV[ID
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼å‰Šé™¤æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	 * @param policyId ãƒãƒªã‚·ãƒ¼ID
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deletePolicy(Integer environmentApiId, Integer policyId) throws AppException {
 
@@ -320,8 +320,8 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * ƒ|ƒŠƒV[íœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void deletePolicies() throws AppException {
 
@@ -336,10 +336,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * APIƒAƒ‰[ƒgŒŸõ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¢ãƒ©ãƒ¼ãƒˆæ¤œç´¢æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public APIAlertResponse[] findAPIAlert(Integer environmentApiId) throws AppException {
 
@@ -353,12 +353,12 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒAƒ‰[ƒg“o˜^‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒX
-	 * @param alertType ƒAƒ‰[ƒgƒ^ƒCƒv
-	 * @param policyId ƒ|ƒŠƒV[ID
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ©ãƒ¼ãƒˆç™»éŒ²æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	 * @param alertType ã‚¢ãƒ©ãƒ¼ãƒˆã‚¿ã‚¤ãƒ—
+	 * @param policyId ãƒãƒªã‚·ãƒ¼ID
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public TierResponse saveAPIAlert(Integer environmentApiId, String alertType, Integer policyId) throws AppException {
 
@@ -377,8 +377,8 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒAƒ‰[ƒg“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ©ãƒ¼ãƒˆç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void saveAlerts() throws AppException {
 
@@ -390,10 +390,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * ƒAƒ‰[ƒgíœ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param alertId ƒAƒ‰[ƒgID
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param alertId ã‚¢ãƒ©ãƒ¼ãƒˆID
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deleteAPIAlert(Integer environmentApiId, String alertId) throws AppException {
 
@@ -409,10 +409,10 @@ public class APIManagerAPICaller {
 	}
 	
 	/**
-	 * ƒAƒ‰[ƒgíœ‹@”\
-	 * @param environmentApiId APIƒCƒ“ƒXƒ^ƒ“ƒXID
-	 * @param alertId ƒAƒ‰[ƒgID
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @param environmentApiId APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ID
+	 * @param alertId ã‚¢ãƒ©ãƒ¼ãƒˆID
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void deleteAlerts() throws AppException {
 
@@ -430,10 +430,10 @@ public class APIManagerAPICaller {
 	}
 
 	/**
-	 * JSONŒ`®ƒƒOo—Í‹@”\
-	 * @param marker ƒ}[ƒJ[ —áF "Application Response {}" 
-	 * @param res o—ÍƒIƒuƒWƒFƒNƒg
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * JSONå½¢å¼ãƒ­ã‚°å‡ºåŠ›æ©Ÿèƒ½
+	 * @param marker ãƒãƒ¼ã‚«ãƒ¼ ä¾‹ï¼š "Application Response {}" 
+	 * @param res å‡ºåŠ›ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void log(String marker, Object res) throws AppException {
 		ObjectMapper mapper = new ObjectMapper();

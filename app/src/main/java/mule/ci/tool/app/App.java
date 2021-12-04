@@ -28,8 +28,8 @@ public class App {
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 
 	/**
-	 * ƒƒCƒ“ˆ—
-	 * @param args ˆø”
+	 * ãƒ¡ã‚¤ãƒ³å‡¦ç†
+	 * @param args å¼•æ•°
 	 */
 	public static void main(String[] args) {
 
@@ -42,10 +42,10 @@ public class App {
 	}
 
 	/**
-	 * ƒT[ƒrƒXƒƒjƒ…[İ’èˆ—
-	 * @param args ˆø”
-	 * @return ÀsƒRƒ}ƒ“ƒh‰ğÍŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚µãƒ¼ãƒ“ã‚¹ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¨­å®šå‡¦ç†
+	 * @param args å¼•æ•°
+	 * @return å®Ÿè¡Œã‚³ãƒãƒ³ãƒ‰è§£æçµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	private static CommandLine setMenue(String[] args) throws AppException {
 
@@ -60,8 +60,8 @@ public class App {
 	}
 	
 	/**
-	 * ’ñ‹ŸƒT[ƒrƒX
-	 * @return ƒT[ƒrƒXŒQ
+	 * æä¾›ã‚µãƒ¼ãƒ“ã‚¹
+	 * @return ã‚µãƒ¼ãƒ“ã‚¹ç¾¤
 	 */
 	private static Options setOptions() {
 		Options options = new Options();
@@ -75,9 +75,9 @@ public class App {
 	}
 
 	/**
-	 * ƒT[ƒrƒXÀs§Œä
-	 * @param line ÀsƒRƒ}ƒ“ƒh
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚µãƒ¼ãƒ“ã‚¹å®Ÿè¡Œåˆ¶å¾¡
+	 * @param line å®Ÿè¡Œã‚³ãƒãƒ³ãƒ‰
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	private static void taskControler(CommandLine line) throws AppException {
 
@@ -175,8 +175,8 @@ public class App {
 	}
 	
 	/**
-	 * ‰Šúƒƒ\ƒbƒh
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * åˆæœŸãƒ¡ã‚½ãƒƒãƒ‰
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void init() throws AppException {
 
@@ -201,8 +201,8 @@ public class App {
 	}
 	
 	/**
-	 * ‘Síœˆ—
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * å…¨å‰Šé™¤å‡¦ç†
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteAll() throws AppException {
 
@@ -212,8 +212,8 @@ public class App {
 	}
 	
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒX“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void saveAPIInstance() throws AppException {
 
@@ -222,8 +222,8 @@ public class App {
 	}
 	
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXXV‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ›´æ–°æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void updateAPIInstance() throws AppException {
 
@@ -232,8 +232,8 @@ public class App {
 	}
 
 	/**
-	 * APIƒCƒ“ƒXƒ^ƒ“ƒXíœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteAPIInstance() throws AppException {
 
@@ -242,8 +242,8 @@ public class App {
 	}
 
 	/**
-	 * SLA‘w“o˜^ğ“ú
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤ç™»éŒ²æ˜¨æ—¥
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void saveSLATiers() throws AppException {
 
@@ -252,8 +252,8 @@ public class App {
 	}
 	
 	/**
-	 * SLA‘wíœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * SLAå±¤å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteSLATiers() throws AppException {
 
@@ -262,8 +262,8 @@ public class App {
 	}
 	
 	/**
-	 * ƒ|ƒŠƒV[“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼ç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void savePolicies() throws AppException {
 
@@ -272,8 +272,8 @@ public class App {
 	}
 	
 	/**
-	 * ƒ|ƒŠƒV[íœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒãƒªã‚·ãƒ¼å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deletePolicies() throws AppException {
 
@@ -282,8 +282,8 @@ public class App {
 	}
 
 	/**
-	 * ƒAƒ‰[ƒg“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ©ãƒ¼ãƒˆç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void saveAlerts() throws AppException {
 
@@ -292,8 +292,8 @@ public class App {
 	}
 	
 	/**
-	 * ‘SƒAƒ‰[ƒgíœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * å…¨ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteAlerts() throws AppException {
 
@@ -302,8 +302,8 @@ public class App {
 	}
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‘¶İƒ`ƒFƒbƒN‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å­˜åœ¨ãƒã‚§ãƒƒã‚¯æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static Boolean existApplication() throws AppException {
 
@@ -320,8 +320,8 @@ public class App {
 	}
 	
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ““o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void saveApplication() throws AppException {
 
@@ -334,8 +334,8 @@ public class App {
 	}
 	
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“XV‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void updateApplication() throws AppException {
 
@@ -348,8 +348,8 @@ public class App {
 	}
 	
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“íœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteApplication() throws AppException {
 
@@ -358,8 +358,8 @@ public class App {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒg“o˜^‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆç™»éŒ²æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void saveRuntimeAlerts() throws AppException {
 
@@ -368,8 +368,8 @@ public class App {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgíœ‹@”\
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static void deleteRuntimeAlerts() throws AppException {
 

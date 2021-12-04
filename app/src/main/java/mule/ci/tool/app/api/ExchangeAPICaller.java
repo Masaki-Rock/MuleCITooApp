@@ -13,9 +13,9 @@ public class ExchangeAPICaller {
 	private static final Logger log = LoggerFactory.getLogger(ExchangeAPICaller.class);
 	
 	/**
-	 * ƒAƒZƒbƒgŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ã‚»ãƒƒãƒˆæ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
     public ExchangeAssetResponse findAsset() throws AppException {
     	

@@ -129,24 +129,24 @@ public class Const {
 		}
 		Map<String, Object> commonConf = (Map<String, Object>) common.loadAs(in, Map.class);
 
-		// ƒNƒ‰ƒCƒAƒ“ƒg”FØî•ñ
+		// ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆèªè¨¼æƒ…å ±
 		Map<String, Object> connApp = (Map<String, Object>) commonConf.get("connectedApplication");
 		CLIENT_ID = (String) connApp.get("clientId");
 		CLIENT_SECRET = (String) connApp.get("clientSecret");
 		GRANT_TYPE = (String) connApp.get("grantType");
 
-		// ‘gDî•ñ
+		// çµ„ç¹”æƒ…å ±
 		Map<String, Object> org = (Map<String, Object>) commonConf.get("organization");
 		Map<String, Object> env = (Map<String, Object>) org.get("enviromentIds");
 		ORGANIZATION_ID = (String) org.get("organizationId");
 		DEV_ENVIRONMENT_ID = (String) env.get("deveper");
 		
-		// ƒvƒƒWƒFƒNƒgƒRƒ“ƒtƒBƒOƒtƒ@ƒCƒ‹
+		// ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚³ãƒ³ãƒ•ã‚£ã‚°ãƒ•ã‚¡ã‚¤ãƒ«
 		Map<String, Object> proj = (Map<String, Object>) commonConf.get("project");
 		Map<String, Object> conf = (Map<String, Object>) proj.get("config");
 		PROJECT_YAML_FILE_PATH = (String) conf.get("path");
 
-		// ƒvƒƒWƒFƒNƒg–ˆ‚ÌŒÂ•Êİ’è
+		// ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ¯ã®å€‹åˆ¥è¨­å®š
 		Yaml project = new Yaml();
 		input = Paths.get(PROJECT_YAML_FILE_PATH);
 		in = null;
@@ -158,15 +158,15 @@ public class Const {
 		System.out.println("reading priject config file path : " + input.toAbsolutePath());
 		Map<String, Object> projectConf = (Map<String, Object>) project.loadAs(in, Map.class);
 
-		// ŠÂ‹«
+		// ç’°å¢ƒ
 		ENV = (String) projectConf.get("env");
 		
-		// APIƒCƒ“ƒXƒ^ƒ“ƒXî•ñ
+		// APIã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æƒ…å ±
 		Map<String, Object> api = (Map<String, Object>) projectConf.get("apiInstance");
 		ASSET_ID = (String) api.get("assetId");
 		API_INSTANCE_LABEL = (String) api.get("apiInstanceLabel");
 
-		// ƒ‰ƒ“ƒ^ƒCƒ€
+		// ãƒ©ãƒ³ã‚¿ã‚¤ãƒ 
 		Map<String, Object> runtime = (Map<String, Object>) projectConf.get("runtime");
 		DOMAIN = (String) runtime.get("domain");
 		APPLICATION_FILE_PATH = (String) runtime.get("filename");
@@ -182,19 +182,19 @@ public class Const {
 		USE_OBJECT_STORE_V2 = (Boolean) runtime.get("useObjectStorev2");
 		ENABLE_MONITORING = (Boolean) runtime.get("enableMonitoring");
 		
-		// SLA‘wî•ñ
+		// SLAå±¤æƒ…å ±
 		TIERS = (List<Map<String, Object>>) projectConf.get("tiers");
 		
-		// ƒ|ƒŠƒV[ƒŠƒXƒg
+		// ãƒãƒªã‚·ãƒ¼ãƒªã‚¹ãƒˆ
 		POLICIES = (Map<String,Object>) projectConf.get("policies");
 		
-		// ƒAƒ‰[ƒgƒŠƒXƒg
+		// ã‚¢ãƒ©ãƒ¼ãƒˆãƒªã‚¹ãƒˆ
 		ALERTS = (List<String>) projectConf.get("alerts");
 				
-		// ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgƒŠƒXƒg
+		// ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆãƒªã‚¹ãƒˆ
 		RUNTIME_ALERTS = (List<String>) projectConf.get("runtimeAlerts");
 		
-		// ƒAƒ‰[ƒgóMÒ
+		// ã‚¢ãƒ©ãƒ¼ãƒˆå—ä¿¡è€…
 		ALERT_RECIPIENTS = (List<Map<String, Object>>) projectConf.get("alertRecipients");
 		ALERT_RECIPIENT_USER_IDS = new ArrayList<String>();
 		for (Map<String, Object> user: ALERT_RECIPIENTS) {

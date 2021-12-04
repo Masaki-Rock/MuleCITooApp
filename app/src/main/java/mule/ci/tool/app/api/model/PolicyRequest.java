@@ -107,7 +107,7 @@ public class PolicyRequest {
 	}
 
 	/**
-	 * JWTŒŸØƒ|ƒŠƒV[İ’è
+	 * JWTæ¤œè¨¼ãƒãƒªã‚·ãƒ¼è¨­å®š
 	 */
 	private void setJWTValiedationPolicySetting() {
 		
@@ -142,7 +142,7 @@ public class PolicyRequest {
 	}
 
 	/**
-	 * ƒŒ[ƒg§ŒÀİ’è
+	 * ãƒ¬ãƒ¼ãƒˆåˆ¶é™è¨­å®š
 	 */
 	private void setRatelimitingSLAbasedPolicySetting() {
 		
@@ -164,7 +164,7 @@ public class PolicyRequest {
 	}
 
 	/**
-	 * ƒwƒbƒ_[ƒCƒ“ƒWƒFƒNƒVƒ‡ƒ“İ’è
+	 * ãƒ˜ãƒƒãƒ€ãƒ¼ã‚¤ãƒ³ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¨­å®š
 	 */
 	private void setHeaderInjectionPolicySetting() {
 
@@ -188,7 +188,7 @@ public class PolicyRequest {
 	}
 
 	/**
-	 * ƒwƒbƒ_[íœİ’è
+	 * ãƒ˜ãƒƒãƒ€ãƒ¼å‰Šé™¤è¨­å®š
 	 */
 	private void setHeaderRemovalPolicySetting() {
 		
@@ -208,7 +208,7 @@ public class PolicyRequest {
 	}
 
 	/**
-	 * ƒƒbƒZ[ƒWƒƒMƒ“ƒO‹@”\
+	 * ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ­ã‚®ãƒ³ã‚°æ©Ÿèƒ½
 	 */
 	private void setMessageLoggingPolicySetting() {
 
@@ -220,7 +220,7 @@ public class PolicyRequest {
 		this.apiVersionId = 17452856;
 		List<Object> items = new ArrayList<Object>();
 		
-		// ƒƒbƒZ[ƒWƒƒO‚P
+		// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ­ã‚°ï¼‘
 		Map<String, Object> item = new HashMap<String, Object>();
 		item.put("itemName", "Default configuration");
 		Map<String, Object> itemData = new HashMap<String, Object>();
@@ -233,7 +233,7 @@ public class PolicyRequest {
 		item.put("itemData", itemData);
 		items.add(item);
 		
-		// ƒƒbƒZ[ƒWƒƒO‚Q
+		// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ­ã‚°ï¼’
 		Map<String, Object> item2 = new HashMap<String, Object>();
 		item2.put("itemName", "Endpoint Http Status Code");
 		Map<String, Object> itemData2 = new HashMap<String, Object>();

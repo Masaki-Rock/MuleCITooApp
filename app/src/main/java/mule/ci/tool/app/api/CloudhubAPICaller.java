@@ -35,9 +35,9 @@ public class CloudhubAPICaller {
 	private static final Logger log = LoggerFactory.getLogger(CloudhubAPICaller.class);
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ApplicationResponse[] findApplication() throws AppException {
 
@@ -49,10 +49,10 @@ public class CloudhubAPICaller {
 	}
 	
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ŒŸõ‹@”\
-	 * @param domain ƒAƒvƒŠƒP[ƒVƒ‡ƒ“–¼
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æ¤œç´¢æ©Ÿèƒ½
+	 * @param domain ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ApplicationResponse findApplication(String domain) throws AppException {
 
@@ -66,9 +66,9 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ““o˜^‹@”\
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ç™»éŒ²æ©Ÿèƒ½
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ApplicationResponse saveApplication() throws AppException {
 
@@ -92,16 +92,16 @@ public class CloudhubAPICaller {
 		String path = String.format(Const.APPLICATION_END_POINT, StringUtils.EMPTY, StringUtils.EMPTY);
 		String resbody = HttpClientUtil.sendRequestForMultipart(path, Const.POST, multiPart);
 
-		// ƒŒƒXƒ|ƒ“ƒX•ÏŠ·
+		// ãƒ¬ã‚¹ãƒãƒ³ã‚¹å¤‰æ›
 		ApplicationResponse res = HttpClientUtil.makeResponse(resbody, ApplicationResponse.class);
 		return res;
 	}
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“XV‹@”\
-	 * @param domain ƒhƒƒCƒ“–¼
-	 * @return XVŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°æ©Ÿèƒ½
+	 * @param domain ãƒ‰ãƒ¡ã‚¤ãƒ³å
+	 * @return æ›´æ–°çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ApplicationResponse updateApplication(String domain) throws AppException {
 
@@ -120,23 +120,23 @@ public class CloudhubAPICaller {
 				.bodyPart(fileDataBodyPart);
 		multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
 		
-		// ƒŠƒNƒGƒXƒg‘—M
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€ä¿¡
 		String path = String.format(Const.APPLICATION_END_POINT, "/", domain);
 		String resbody = HttpClientUtil.sendRequestForMultipart(path, Const.PUT, multiPart);
 
-		// ƒŒƒXƒ|ƒ“ƒX•ÏŠ·
+		// ãƒ¬ã‚¹ãƒãƒ³ã‚¹å¤‰æ›
 		ApplicationResponse res = HttpClientUtil.makeResponse(resbody, ApplicationResponse.class);
 		return res;
 	}
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“íœ‹@”\
-	 * @param domain ƒAƒvƒŠƒP[ƒVƒ‡ƒ“–¼
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å‰Šé™¤æ©Ÿèƒ½
+	 * @param domain ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deleteApplication(String domain) throws AppException {
-		// ƒŠƒNƒGƒXƒg‘—M
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€ä¿¡
 		String path = String.format(Const.APPLICATION_END_POINT, "/", domain);
 		String resbody = HttpClientUtil.sendRequestforCloudHubAPI(path, Const.DELETE, null);
 
@@ -147,10 +147,10 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgŒŸõ‹@”\
-	 * @param applicationName ƒAƒvƒŠƒP[ƒVƒ‡ƒ“–¼
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆæ¤œç´¢æ©Ÿèƒ½
+	 * @param applicationName ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public CommonResponse findRuntimeAlert() throws AppException {
 
@@ -162,29 +162,29 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgì¬ˆ—
-	 * @param alertType ƒAƒvƒŠƒP[ƒVƒ‡ƒ“–¼
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆä½œæˆå‡¦ç†
+	 * @param alertType ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public RuntimeAlertResponse saveRuntimeAlert(String alertType) throws AppException {
 
-		// ƒŠƒNƒGƒXƒgƒƒbƒZ[ƒWì¬
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ä½œæˆ
 		RuntimeAlertRequest alert = RuntimeAlertRequest.factory(alertType);
 
-		// ƒŠƒNƒGƒXƒg‘—M
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€ä¿¡
 		String path = String.format(Const.RUNTIME_ALERT_END_POINT, StringUtils.EMPTY, StringUtils.EMPTY);
 		String resbody = HttpClientUtil.sendRequestforCloudHubAPI(path, Const.POST, alert);
 
-		// ƒŒƒXƒ|ƒ“ƒX•ÏŠ·
+		// ãƒ¬ã‚¹ãƒãƒ³ã‚¹å¤‰æ›
 		RuntimeAlertResponse res = HttpClientUtil.makeResponse(resbody, RuntimeAlertResponse.class);
 		return res;
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒg“o˜^ˆ—
-	 * @return “o˜^Œ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆç™»éŒ²å‡¦ç†
+	 * @return ç™»éŒ²çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void saveRuntimeAlerts() throws AppException {
 
@@ -198,14 +198,14 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgíœ‹@”\
-	 * @param alertId ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgID
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @param alertId ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆID
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public Boolean deleteRuntimeAlert(String alertId) throws AppException {
 
-		// ƒŠƒNƒGƒXƒg‘—M
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€ä¿¡
 		String path = String.format(Const.RUNTIME_ALERT_END_POINT, "/", alertId);
 		String resbody = HttpClientUtil.sendRequestforCloudHubAPI(path, Const.DELETE, null);
 
@@ -216,9 +216,9 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ^ƒCƒ€ƒAƒ‰[ƒgíœ‹@”\
-	 * @return íœŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒ©ãƒ¼ãƒˆå‰Šé™¤æ©Ÿèƒ½
+	 * @return å‰Šé™¤çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public void deleteRuntimeAlerts() throws AppException {
 
@@ -236,9 +236,9 @@ public class CloudhubAPICaller {
 	}
 
 	/**
-	 * ƒAƒZƒbƒgŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ã‚»ãƒƒãƒˆæ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ExchangeAssetResponse findAccount() throws AppException {
 

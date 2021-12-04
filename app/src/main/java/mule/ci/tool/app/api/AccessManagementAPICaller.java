@@ -12,15 +12,15 @@ import mule.ci.tool.app.util.Const;
 import mule.ci.tool.app.util.HttpClientUtil;
 
 /**
- * ”FØ‚âƒ†[ƒUŒŸõŠÖ˜AƒNƒ‰ƒX
+ * èªè¨¼ã‚„ãƒ¦ãƒ¼ã‚¶æ¤œç´¢é–¢é€£ã‚¯ãƒ©ã‚¹
  * @author masaki.kawaguchi
  */
 public class AccessManagementAPICaller {
 
 	/**
-	 * ƒ†[ƒUŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ¦ãƒ¼ã‚¶æ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public CommonResponse findUser() throws AppException {
 		
@@ -31,9 +31,9 @@ public class AccessManagementAPICaller {
 	}
 	
 	/**
-	 * ƒƒ“ƒo[ŒŸõ‹@”\
-	 * @return ŒŸõŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒGƒ‰[
+	 * ãƒ¡ãƒ³ãƒãƒ¼æ¤œç´¢æ©Ÿèƒ½
+	 * @return æ¤œç´¢çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼
 	 */
 	public CommonResponse findMember() throws AppException {
 		
@@ -46,10 +46,10 @@ public class AccessManagementAPICaller {
 	private CommonResponse users;
 	
 	/**
-	 * ƒƒ“ƒo[ŒŸõ‹@”\
-	 * @param mailAddress ƒ[ƒ‹ƒAƒhƒŒƒX
-	 * @return ƒƒ“ƒo[IDŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ãƒ¡ãƒ³ãƒãƒ¼æ¤œç´¢æ©Ÿèƒ½
+	 * @param mailAddress ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+	 * @return ãƒ¡ãƒ³ãƒãƒ¼IDçµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public String findMember(String mailAddress) throws AppException {
 		
@@ -68,9 +68,9 @@ public class AccessManagementAPICaller {
 	}
 	
 	/**
-	 * ƒNƒ‰ƒCƒAƒ“ƒg”FØ‹@”\
-	 * @return ”FØŒ‹‰Ê
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆèªè¨¼æ©Ÿèƒ½
+	 * @return èªè¨¼çµæœ
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public ClientCredential getToken() throws AppException {
 		
@@ -80,9 +80,9 @@ public class AccessManagementAPICaller {
 	}
 	
 	/**
-	 * ƒAƒNƒZƒXƒg[ƒNƒ“æ“¾‹@”\
-	 * @return ƒAƒNƒZƒXƒg[ƒNƒ“
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * ã‚¢ã‚¯ã‚»ã‚¹ãƒˆãƒ¼ã‚¯ãƒ³å–å¾—æ©Ÿèƒ½
+	 * @return ã‚¢ã‚¯ã‚»ã‚¹ãƒˆãƒ¼ã‚¯ãƒ³
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
     public String getAccessToken() throws AppException {
     	

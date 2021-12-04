@@ -45,13 +45,13 @@ public class HttpClientUtil {
 	private static final Logger log = LoggerFactory.getLogger(HttpClientUtil.class);
 
 	/**
-	 * RESTAPI‘—Mˆ—
+	 * RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequest(String urlParam, String method, Object body) throws AppException {
 
@@ -59,13 +59,13 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * CloudHubAPI—pRESTAPI‘—Mˆ—
+	 * CloudHubAPIç”¨RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequestforCloudHubAPI(String urlParam, String method, Object body) throws AppException {
 
@@ -73,13 +73,13 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * CloudHubAPI—pRESTAPI‘—Mˆ—
+	 * CloudHubAPIç”¨RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequestForMultipartAndCloudHubAPI(String urlParam, String method, String body,
 			String boundary) throws AppException {
@@ -88,14 +88,14 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * RESTAPI‘—Mˆ—
+	 * RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @param headers  ƒwƒbƒ_[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @param headers  ãƒ˜ãƒƒãƒ€ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequestForJson(String urlParam, String method, Object body, Map<String, String> headers)
 			throws AppException {
@@ -104,14 +104,14 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * RESTAPI‘—Mˆ—
+	 * RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @param headers  ƒwƒbƒ_[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @param headers  ãƒ˜ãƒƒãƒ€ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequestForJson(String urlParam, String method, String body, Map<String, String> headers)
 			throws AppException {
@@ -120,7 +120,7 @@ public class HttpClientUtil {
 			entity = new StringEntity(body, "UTF-8");
 			entity.setContentType("application/json");
 		}
-		log.debug("target path. {}@: {}", method, urlParam);
+		log.debug("target path. {}ã€€: {}", method, urlParam);
 		log.debug("headers. {}", headers);
 		log.debug("request body. {}", format(body));
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -160,14 +160,14 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * RESTAPI‘—Mˆ—
+	 * RESTAPIé€ä¿¡å‡¦ç†
 	 * 
-	 * @param urlParam URLƒpƒX
-	 * @param method   HTTPƒƒ\ƒbƒh
-	 * @param body     ƒŠƒNƒGƒXƒgƒ{ƒfƒB[
-	 * @param headers  ƒwƒbƒ_[
-	 * @return ƒŒƒXƒ|ƒ“ƒXƒ{ƒfƒB[
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param urlParam URLãƒ‘ã‚¹
+	 * @param method   HTTPãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param body     ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ãƒ¼
+	 * @param headers  ãƒ˜ãƒƒãƒ€ãƒ¼
+	 * @return ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒœãƒ‡ã‚£ãƒ¼
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String sendRequestForMutipart(String urlParam, String method, String body,
 			Map<String, String> headers, String boundary) throws AppException {
@@ -176,7 +176,7 @@ public class HttpClientUtil {
 			entity = new StringEntity(body, "UTF-8");
 			entity.setContentType("multipart/form-data");
 		}
-		log.debug("target path. {}@: {}", method, urlParam);
+		log.debug("target path. {}ã€€: {}", method, urlParam);
 		log.debug("headers. {}", headers);
 		log.debug("request body. {}", body);
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -218,8 +218,8 @@ public class HttpClientUtil {
 	
 	public static String sendRequestForMultipart(String urlParam, String method, MultiPart multiPart) throws AppException {
 		
-		// ƒŠƒNƒGƒXƒg‘—M
-		log.debug("target path. {}@: {}", method, urlParam);
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€ä¿¡
+		log.debug("target path. {}ã€€: {}", method, urlParam);
 		ClientConfig config = new DefaultClientConfig();
 		config.getClasses().add(MultiPartWriter.class);
 		Client client = Client.create(config);
@@ -270,10 +270,10 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * ƒAƒNƒZƒXƒg[ƒNƒ“ƒwƒbƒ_[
+	 * ã‚¢ã‚¯ã‚»ã‚¹ãƒˆãƒ¼ã‚¯ãƒ³ãƒ˜ãƒƒãƒ€ãƒ¼
 	 * 
-	 * @return ƒwƒbƒ_[î•ñ
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @return ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static Map<String, String> makeAccessTokenHeader() throws AppException {
 		Map<String, String> headers = new HashMap<String, String>();
@@ -282,10 +282,10 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * ƒAƒNƒZƒXƒg[ƒNƒ“ƒwƒbƒ_[
+	 * ã‚¢ã‚¯ã‚»ã‚¹ãƒˆãƒ¼ã‚¯ãƒ³ãƒ˜ãƒƒãƒ€ãƒ¼
 	 * 
-	 * @return ƒwƒbƒ_[î•ñ
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @return ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static Map<String, String> makeAccessTokenHeaderforCloudHubAPI() throws AppException {
 		Map<String, String> headers = makeAccessTokenHeader();
@@ -307,10 +307,10 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * ƒCƒ“ƒfƒ“ƒgŒ`®‚É•ÏŠ·‚·‚é
+	 * ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆå½¢å¼ã«å¤‰æ›ã™ã‚‹
 	 * 
-	 * @param msg JSON•¶š—ñ
-	 * @return ®Œ`Œã‚Ì•¶š—ñ
+	 * @param msg JSONæ–‡å­—åˆ—
+	 * @return æ•´å½¢å¾Œã®æ–‡å­—åˆ—
 	 */
 	private static String format(String msg) {
 		if (msg == null)
@@ -323,11 +323,11 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * JSON•ÏŠ·‹@”\
+	 * JSONå¤‰æ›æ©Ÿèƒ½
 	 * 
-	 * @param body ƒIƒuƒWƒFƒNƒg
-	 * @return JSONƒf[ƒ^
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * @param body ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	 * @return JSONãƒ‡ãƒ¼ã‚¿
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
 	public static String toJson(Object body) throws AppException {
 		String request = null;
