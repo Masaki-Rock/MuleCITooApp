@@ -56,9 +56,9 @@ public class Const {
 
 	public static final String DELETE = "DELETE";
 
-	public static String CONFIG_YAML_FILE_PATH = "config-dev.yaml";
+	public static String CONFIG_YAML_FILE_PATH = "config.yaml";
 	
-	public static String PROJECT_YAML_FILE_PATH = "project-dev.yaml";
+	public static String PROJECT_YAML_FILE_PATH = "project.yaml";
 	
 	public static String APPLICATION_FILE_PATH;
 
@@ -88,7 +88,7 @@ public class Const {
 	
 	public static String RUNTIME_VERSION;
 	
-	public static String VCORE;
+	public static String WORKER_TYPE;
 	
 	public static Integer WORKERS;
 	
@@ -137,7 +137,8 @@ public class Const {
 
 		// 組織情報
 		Map<String, Object> org = (Map<String, Object>) commonConf.get("organization");
-		Map<String, Object> env = (Map<String, Object>) org.get("enviromentIds");
+		List<Map<String, Object>> bussinesGroups = (List<Map<String, Object>>) org.get("bussinesGroup");
+		
 		ORGANIZATION_ID = (String) org.get("organizationId");
 		DEV_ENVIRONMENT_ID = (String) env.get("deveper");
 		
@@ -173,7 +174,7 @@ public class Const {
 		API_ID_KEY = (String) runtime.get("apiIDkey");
 		RUNTIME_VERSION = (String) runtime.get("runtimeVersion");
 		Map<String, Object> worker = (Map<String, Object>) runtime.get("worker");
-		VCORE = (String) worker.get("vCore");
+		WORKER_TYPE = (String) worker.get("type");
 		WORKERS = (Integer) worker.get("workers");
 		REGION = (String) worker.get("region");
 		RUNTIME_PROPERTIES = (Map<String, String>) runtime.get("properties");

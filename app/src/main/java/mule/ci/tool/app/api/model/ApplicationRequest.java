@@ -22,43 +22,43 @@ public class ApplicationRequest {
 			this.properties.put(key, Const.RUNTIME_PROPERTIES.get(key));
 		}
 		Map<String, Object> workerType = new HashMap<String, Object>();
-		if (StringUtils.equals("0.1", Const.VCORE)) {
+		if (StringUtils.equals("Micro", Const.WORKER_TYPE)) {
 			workerType.put("name", "Micro");
 			workerType.put("weight", 0.1);
 			workerType.put("cpu", "0.1 vCores");
 			workerType.put("memory", "500 MB memory");
 		}
-		if (StringUtils.equals("0.2", Const.VCORE)) {
+		if (StringUtils.equals("Small", Const.WORKER_TYPE)) {
 			workerType.put("name", "Small");
 			workerType.put("weight", 0.2);
 			workerType.put("cpu", "0.2 vCores");
 			workerType.put("memory", "1 GB memory");
 		}
-		if (StringUtils.equals("1.0", Const.VCORE)) {
+		if (StringUtils.equals("Medium", Const.WORKER_TYPE)) {
 			workerType.put("name", "Medium");
 			workerType.put("weight", 1.0);
 			workerType.put("cpu", "1 vCore");
 			workerType.put("memory", "1.5 GB memory");
 		}
-		if (StringUtils.equals("2.0", Const.VCORE)) {
+		if (StringUtils.equals("Large", Const.WORKER_TYPE)) {
 			workerType.put("name", "Large");
 			workerType.put("weight", 2.0);
 			workerType.put("cpu", "2 vCores");
 			workerType.put("memory", "3.5 GB memory");
 		}
-		if (StringUtils.equals("4.0", Const.VCORE)) {
+		if (StringUtils.equals("xLarge", Const.WORKER_TYPE)) {
 			workerType.put("name", "xLarge");
 			workerType.put("weight", 4.0);
 			workerType.put("cpu", "4 vCores");
 			workerType.put("memory", "7.5 GB memory");
 		}
-		if (StringUtils.equals("8.0", Const.VCORE)) {
+		if (StringUtils.equals("xxLarge", Const.WORKER_TYPE)) {
 			workerType.put("name", "xxLarge");
 			workerType.put("weight", 8.0);
 			workerType.put("cpu", "8 vCores");
 			workerType.put("memory", "15 GB memory");
 		}
-		if (StringUtils.equals("16.0", Const.VCORE)) {
+		if (StringUtils.equals("4xLarge", Const.WORKER_TYPE)) {
 			workerType.put("name", "4xLarge");
 			workerType.put("weight", 16.0);
 			workerType.put("cpu", "16 vCores");
