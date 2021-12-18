@@ -1,19 +1,19 @@
 package mule.ci.tool.app.api.model;
 
-import mule.ci.tool.app.util.Const;
-
 public class APIInstanceRequest {
-	
-	public APIInstanceRequest() {}
-	
+
+	public APIInstanceRequest() {
+	}
+
 	public APIInstanceRequest(String groupId, String assetId,
-			String version) {
+			String version, String instanceLabel) {
 		this.spec.setGroupId(groupId);
 		this.spec.setAssetId(assetId);
 		this.spec.setVersion(version);
+		this.instanceLabel = instanceLabel;
 	}
 
-	private String instanceLabel = Const.API_INSTANCE_LABEL;
+	private String instanceLabel;
 
 	private APIInstanceSpecRequest spec = new APIInstanceSpecRequest();
 

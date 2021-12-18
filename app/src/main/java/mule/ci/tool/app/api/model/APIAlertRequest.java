@@ -14,38 +14,40 @@ import mule.ci.tool.app.util.Const;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class APIAlertRequest {
 
-	public APIAlertRequest() {}
-	
-	public static APIAlertRequest factory(String type, Integer policyId) {
-		
+	public APIAlertRequest() {
+	}
+
+	public static APIAlertRequest factory(String apiInstanceName, String type, Integer policyId) {
+
 		APIAlertRequest alert = new APIAlertRequest();
-		
+
 		if (StringUtils.equals("jwt-validation", type)) {
-			alert.setJWTValidation(policyId);
+			alert.setJWTValidation(apiInstanceName, policyId);
 		}
 		if (StringUtils.equals("rate-limiting-sla-based", type)) {
-			alert.setAPIRatelimitingSLABased(policyId);
+			alert.setAPIRatelimitingSLABased(apiInstanceName, policyId);
 		}
 		if (StringUtils.equals("api-response-time", type)) {
-			alert.setAPIResponsetime();
+			alert.setAPIResponsetime(apiInstanceName);
 		}
 		if (StringUtils.equals("api-response-code-500", type)) {
-			alert.setHTTP500Error();
+			alert.setHTTP500Error(apiInstanceName);
 		}
 		if (StringUtils.equals("api-response-code-400", type)) {
-			alert.setHTTP400Error();
+			alert.setHTTP400Error(apiInstanceName);
 		}
 		if (StringUtils.equals("api-request-count", type)) {
-			alert.setAPIRequestCount();
+			alert.setAPIRequestCount(apiInstanceName);
 		}
 		for (Map<String, Object> user : Const.ALERT_RECIPIENTS) {
-			alert.addRecipient((String) user.get("userId"),(String) user.get("lastName"),(String) user.get("firstName"));
+			alert.addRecipient((String) user.get("userId"), (String) user.get("lastName"),
+					(String) user.get("firstName"));
 		}
 		return alert;
 	}
-	
-	private void setJWTValidation(Integer policyId) {
-		this.name = String.format("[%s] %s JWT Validation error alert", Const.ENV, Const.ASSET_ID);
+
+	private void setJWTValidation(String apiInstanceName, Integer policyId) {
+		this.name = String.format("[%s] %s JWT Validation error alert", Const.ENVIRONMENT_NAME, apiInstanceName);
 		this.type = "api-policy-violation";
 		this.policyId = policyId;
 		this.policyTemplate = new APIPolicyTemplate();
@@ -54,9 +56,10 @@ public class APIAlertRequest {
 		setCondition();
 		setPeriod();
 	}
-	
-	private void setAPIRatelimitingSLABased(Integer policyId) {
-		this.name = String.format("[%s] %s Rate Limiting SLA based threshold exceeded alert", Const.ENV, Const.ASSET_ID);
+
+	private void setAPIRatelimitingSLABased(String apiInstanceName, Integer policyId) {
+		this.name = String.format("[%s] %s Rate Limiting SLA based threshold exceeded alert", Const.ENVIRONMENT_NAME,
+				apiInstanceName);
 		this.type = "api-policy-violation";
 		this.policyId = policyId;
 		this.policyTemplate = new APIPolicyTemplate();
@@ -65,9 +68,9 @@ public class APIAlertRequest {
 		setCondition();
 		setPeriod();
 	}
-	
-	private void setAPIResponsetime() {
-		this.name = String.format("[%s] %s Response time out alert", Const.ENV, Const.ASSET_ID);
+
+	private void setAPIResponsetime(String apiInstanceName) {
+		this.name = String.format("[%s] %s Response time out alert", Const.ENVIRONMENT_NAME, apiInstanceName);
 		this.type = "api-response-time";
 		setCondition();
 		List<Map<String, Object>> filters = new ArrayList<Map<String, Object>>();
@@ -78,51 +81,52 @@ public class APIAlertRequest {
 		filters.add(filter);
 		this.condition.put("filter", filters);
 		setPeriod();
-	}	
-	
-	private void setHTTP500Error() {
-		this.name = String.format("[%s] %s HTTP500 Error alert", Const.ENV, Const.ASSET_ID);
+	}
+
+	private void setHTTP500Error(String apiInstanceName) {
+		this.name = String.format("[%s] %s HTTP500 Error alert", Const.ENVIRONMENT_NAME, apiInstanceName);
 		this.type = "api-response-code";
 		setCondition();
 		List<Map<String, Object>> filters = new ArrayList<Map<String, Object>>();
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("property", "responseCode");
 		filter.put("operator", "IN");
-		filter.put("values", new String[] {"500","502","503","504","505","510","511"});
+		filter.put("values", new String[] { "500", "502", "503", "504", "505", "510", "511" });
 		filters.add(filter);
 		this.condition.put("filter", filters);
 		setPeriod();
 	}
-	
-	private void setHTTP400Error() {
-		this.name = String.format("[%s] %s HTTP400 Error alert", Const.ENV, Const.ASSET_ID);
+
+	private void setHTTP400Error(String apiInstanceName) {
+		this.name = String.format("[%s] %s HTTP400 Error alert", Const.ENVIRONMENT_NAME, apiInstanceName);
 		this.type = "api-response-code";
 		setCondition();
 		List<Map<String, Object>> filters = new ArrayList<Map<String, Object>>();
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("property", "responseCode");
 		filter.put("operator", "IN");
-		filter.put("values", new String[] {"400","401","403","404","408","429"});
+		filter.put("values", new String[] { "400", "401", "403", "404", "408", "429" });
 		filters.add(filter);
 		this.condition.put("filter", filters);
 		setPeriod();
 	}
-	
-	private void setAPIRequestCount() {
-		this.name = String.format("[%s] %s Request Count threshold exceeded alert", Const.ENV, Const.ASSET_ID);
+
+	private void setAPIRequestCount(String apiInstanceName) {
+		this.name = String.format("[%s] %s Request Count threshold exceeded alert", Const.ENVIRONMENT_NAME,
+				apiInstanceName);
 		this.type = "api-request-count";
 		setCondition();
 		this.condition.put("value", 5000);
 		setPeriod();
 	}
-	
+
 	private void setCondition() {
 		this.condition.put("resourceType", "api-version");
 		this.condition.put("aggregate", "COUNT");
 		this.condition.put("operator", "GREATER_THAN");
 		this.condition.put("value", 0);
 	}
-	
+
 	private void setPeriod() {
 		this.period = new HashMap<String, Object>();
 		this.period.put("repeat", 1);
@@ -131,15 +135,15 @@ public class APIAlertRequest {
 		duration.put("weight", "MINUTES");
 		this.period.put("duration", duration);
 	}
- 
+
 	private String name;
 
 	private String type;
 
 	private String severity = "Warning";
-	
+
 	private Integer policyId;
-	
+
 	private APIPolicyTemplate policyTemplate;
 
 	private String apiAlertsVersion = "1.0.0";
@@ -151,9 +155,9 @@ public class APIAlertRequest {
 	private Map<String, Object> period = new HashMap<String, Object>();
 
 	private List<APIAlertRecipient> recipients = new ArrayList<APIAlertRecipient>();
-	
-//	private String[] severities = new String[] {"Info","Warning","CRITICAL"};
-	
+
+	// private String[] severities = new String[] {"Info","Warning","CRITICAL"};
+
 	public String getApiAlertsVersion() {
 		return apiAlertsVersion;
 	}
@@ -205,14 +209,14 @@ public class APIAlertRequest {
 	public void addRecipient(APIAlertRecipient recipient) {
 		this.recipients.add(recipient);
 	}
-	
+
 	public void addRecipientforMail(String mailaddress) {
 		APIAlertRecipient recipient = new APIAlertRecipient();
 		recipient.setType("email");
 		recipient.setValue(mailaddress);
 		this.recipients.add(recipient);
 	}
-	
+
 	public void addRecipient(String userId, String lastName, String firstName) {
 		APIAlertRecipient recipient = new APIAlertRecipient();
 		recipient.setType("user");
@@ -221,7 +225,7 @@ public class APIAlertRequest {
 		recipient.setFirstName(firstName);
 		this.recipients.add(recipient);
 	}
-	
+
 	public Integer getPolicyId() {
 		return policyId;
 	}
@@ -254,11 +258,10 @@ public class APIAlertRequest {
 		this.period = period;
 	}
 
-
 	public class APIPolicyTemplate {
-		
+
 		private String id;
-		
+
 		private String name;
 
 		public String getId() {
@@ -279,14 +282,14 @@ public class APIAlertRequest {
 	}
 
 	public class APIAlertRecipient {
-		
-	    private String type;
-	    
-	    private String value;
-	    
-	    private String firstName;
-	    
-	    private String lastName;
+
+		private String type;
+
+		private String value;
+
+		private String firstName;
+
+		private String lastName;
 
 		public String getType() {
 			return type;

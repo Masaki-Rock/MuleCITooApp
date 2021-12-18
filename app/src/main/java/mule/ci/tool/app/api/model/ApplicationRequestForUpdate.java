@@ -13,12 +13,16 @@ public class ApplicationRequestForUpdate {
 
 	private static final Logger log = LoggerFactory.getLogger(ApplicationRequestForUpdate.class);
 
-	public ApplicationRequestForUpdate() {
+	public ApplicationRequestForUpdate(Map<String, String> apiIds) {
+
+		for (String key : Const.API_ID_KEYS.keySet()) {
+			if (apiIds.get(Const.API_ID_KEYS.get(key)) != null) {
+				this.properties.put(key, apiIds.get(Const.API_ID_KEYS.get(key)));
+				this.properties.put("anypoint.platform.client_id", Const.ENVIRONMENT_CLIENT_ID);
+				this.properties.put("anypoint.platform.client_secret", Const.ENVIRONMENT_CLIENT_SECRET);
+			}
+		}
 		for (String key : Const.RUNTIME_PROPERTIES.keySet()) {
-			if (StringUtils.equals(Const.API_ID_KEY, key) && Const.API_ID != null) {
-				this.properties.put(key, Const.API_ID.toString());
-				continue;
-			} 
 			this.properties.put(key, Const.RUNTIME_PROPERTIES.get(key));
 		}
 		this.setWorkerType();
@@ -29,50 +33,50 @@ public class ApplicationRequestForUpdate {
 		this.workers = new HashMap<String, Object>();
 		this.workers.put("amount", Const.WORKERS);
 		Map<String, Object> workerType = new HashMap<String, Object>();
-		log.debug("vCore : {}",  Const.VCORE);
-		if (StringUtils.equals("0.1", Const.VCORE)) {
+		log.debug("vCore : {}", Const.WORKER_TYPE);
+		if (StringUtils.equals("0.1", Const.WORKER_TYPE)) {
 			workerType.put("name", "Micro");
 			workerType.put("weight", 0.1);
 			workerType.put("cpu", "0.1 vCores");
 			workerType.put("memory", "500 MB memory");
-			log.debug("vCore : {}",  "Micro");
+			log.debug("vCore : {}", "Micro");
 		}
-		if (StringUtils.equals("0.2", Const.VCORE)) {
+		if (StringUtils.equals("0.2", Const.WORKER_TYPE)) {
 			workerType.put("name", "Small");
 			workerType.put("weight", 0.2);
 			workerType.put("cpu", "0.2 vCores");
 			workerType.put("memory", "1 GB memory");
-			log.debug("vCore : {}",  "Small");
+			log.debug("vCore : {}", "Small");
 		}
-		if (StringUtils.equals("1.0", Const.VCORE)) {
+		if (StringUtils.equals("1.0", Const.WORKER_TYPE)) {
 			workerType.put("name", "Medium");
 			workerType.put("weight", 1.0);
 			workerType.put("cpu", "1 vCore");
 			workerType.put("memory", "1.5 GB memory");
-			log.debug("vCore : {}",  "Medium");
+			log.debug("vCore : {}", "Medium");
 		}
-		if (StringUtils.equals("2.0", Const.VCORE)) {
+		if (StringUtils.equals("2.0", Const.WORKER_TYPE)) {
 			workerType.put("name", "Large");
 			workerType.put("weight", 2.0);
 			workerType.put("cpu", "2 vCores");
 			workerType.put("memory", "3.5 GB memory");
-			log.debug("vCore : {}",  "Large");
+			log.debug("vCore : {}", "Large");
 		}
-		if (StringUtils.equals("4.0", Const.VCORE)) {
+		if (StringUtils.equals("4.0", Const.WORKER_TYPE)) {
 			workerType.put("name", "xLarge");
 			workerType.put("weight", 4.0);
 			workerType.put("cpu", "4 vCores");
 			workerType.put("memory", "7.5 GB memory");
-			log.debug("vCore : {}",  "xLarge");
+			log.debug("vCore : {}", "xLarge");
 		}
-		if (StringUtils.equals("8.0", Const.VCORE)) {
+		if (StringUtils.equals("8.0", Const.WORKER_TYPE)) {
 			workerType.put("name", "xxLarge");
 			workerType.put("weight", 8.0);
 			workerType.put("cpu", "8 vCores");
 			workerType.put("memory", "15 GB memory");
-			log.debug("vCore : {}",  "xxLarge");
+			log.debug("vCore : {}", "xxLarge");
 		}
-		if (StringUtils.equals("16.0", Const.VCORE)) {
+		if (StringUtils.equals("16.0", Const.WORKER_TYPE)) {
 			workerType.put("name", "4xLarge");
 			workerType.put("weight", 16.0);
 			workerType.put("cpu", "16 vCores");

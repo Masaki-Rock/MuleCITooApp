@@ -9,60 +9,60 @@ import mule.ci.tool.app.util.AppException;
 
 public class AppTest {
 
-//	private static final Logger log = LoggerFactory.getLogger(AppTest.class);
+	// private static final Logger log = LoggerFactory.getLogger(AppTest.class);
 
-//	@Test
+	// @Test
 	public void saveAPIInstance() throws AppException {
 		App.saveAPIInstance();
-//        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+		// assertNotNull("app should have a greeting", classUnderTest.getGreeting());
 	}
-	
+
 	@Test
 	public void existApplication() throws AppException {
 		App.existApplication();
 	}
-	
-//	@Test
+
+	@Test
 	public void init() throws AppException {
 		App.init();
 	}
-	
-//	@Test
+
+	@Test
 	public void deleteAll() throws AppException {
 		App.deleteAll();
 	}
-	
-//	@Test
+
+	// @Test
 	public void deleteAPIInstance() throws AppException {
 		App.deleteAPIInstance();
 	}
-	
-//	@Test
+
+	// @Test
 	public void savePolicies() throws AppException {
 		App.savePolicies();
 	}
-	
-//	@Test
+
+	// @Test
 	public void deletePolicies() throws AppException {
 		App.deletePolicies();
 	}
-	
-//	@Test
+
+	// @Test
 	public void saveApplication() throws AppException {
 		App.saveApplication();
 	}
-	
-//	@Test
+
+	// @Test
 	public void updateApplication() throws AppException {
 		App.updateApplication();
 	}
 
-//	@Test
+	// @Test
 	public void saveRuntimeAlerts() throws AppException {
 		App.saveRuntimeAlerts();
 	}
-	
-//	@Test
+
+	// @Test
 	public void deleteRuntimeAlerts() throws AppException {
 		App.deleteRuntimeAlerts();
 	}

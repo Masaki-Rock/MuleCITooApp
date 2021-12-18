@@ -1,18 +1,28 @@
 package mule.ci.tool.app.api;
 
+import java.util.Map;
+
+import org.junit.Test;
+
 import mule.ci.tool.app.util.AppException;
+import mule.ci.tool.app.util.Const;
 
 public class ExchangeAPICallerTest {
 
-//	private static final Logger log = LoggerFactory.getLogger(ExchangeAPICallerTest.class);
-	
+	// private static final Logger log =
+	// LoggerFactory.getLogger(ExchangeAPICallerTest.class);
+
 	/**
-	 * ƒAƒZƒbƒgŒŸõ‹@”\ƒeƒXƒg
-	 * @throws AppException ƒAƒvƒŠƒP[ƒVƒ‡ƒ“—áŠO
+	 * Exchangeã‚¢ã‚»ãƒƒãƒˆæ¤œç´¢æ©Ÿèƒ½
+	 * 
+	 * @throws AppException ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¾‹å¤–
 	 */
-//	@Test
+	@Test
 	public void findAsset() throws AppException {
 		ExchangeAPICaller caller = new ExchangeAPICaller();
-		caller.findAsset();
+		for (String key : Const.API_INSTANCES.keySet()) {
+			Map<String, String> ins = (Map<String, String>) Const.API_INSTANCES.get(key);
+			caller.findAsset(ins.get("assetId"));
+		}
 	}
 }

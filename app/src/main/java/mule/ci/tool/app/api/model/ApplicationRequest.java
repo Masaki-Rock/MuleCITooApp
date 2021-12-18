@@ -9,16 +9,19 @@ import mule.ci.tool.app.util.Const;
 
 public class ApplicationRequest {
 
-	public ApplicationRequest() {
+	public ApplicationRequest(String domain, Map<String, String> apiIds) {
 
-		domain = Const.DOMAIN;
-		muleVersion = new HashMap<String, Object>();
-		muleVersion.put("version", Const.RUNTIME_VERSION);
+		this.domain = domain;
+		this.muleVersion = new HashMap<String, Object>();
+		this.muleVersion.put("version", Const.RUNTIME_VERSION);
+		for (String key : Const.API_ID_KEYS.keySet()) {
+			if (apiIds.get(Const.API_ID_KEYS.get(key)) != null) {
+				this.properties.put(key, apiIds.get(Const.API_ID_KEYS.get(key)));
+				this.properties.put("anypoint.platform.client_id", Const.ENVIRONMENT_CLIENT_ID);
+				this.properties.put("anypoint.platform.client_secret", Const.ENVIRONMENT_CLIENT_SECRET);
+			}
+		}
 		for (String key : Const.RUNTIME_PROPERTIES.keySet()) {
-			if (StringUtils.equals(Const.API_ID_KEY, key) && Const.API_ID != null) {
-				this.properties.put(key, Const.API_ID.toString());
-				continue;
-			} 
 			this.properties.put(key, Const.RUNTIME_PROPERTIES.get(key));
 		}
 		Map<String, Object> workerType = new HashMap<String, Object>();
@@ -71,23 +74,23 @@ public class ApplicationRequest {
 	}
 
 	private String domain;
-	
+
 	private Map<String, Object> muleVersion;
-	
+
 	private String region = "us-east-1";
-	
+
 	private Boolean monitoringEnabled = true;
-	
+
 	private Boolean monitoringAutoRestart = true;
-	
+
 	private Map<String, String> properties = new HashMap<String, String>();
-	
+
 	private Map<String, Object> workers;
-	
+
 	private Boolean loggingNgEnabled = true;
-	
+
 	private Boolean persistentQueues = false;
-	
+
 	private Boolean objectStoreV2 = false;
 
 	public String getDomain() {

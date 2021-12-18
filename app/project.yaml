@@ -1,19 +1,20 @@
+# ビジネスグループ<SalesDept|CostomerService>
 # 環境設定<Dev|IT|ST|Prod|DR>
-bussinesGroupName: SalesDept
+bussinesGroupName: CostomerService
 environmentName: Dev
 
 # APIインスタンス
 apiInstances:
-  - apiInstance:
-    assetId: account
+  account:
+    assetId: account-cs
     apiInstanceLabel: Development
 
 # ランタイム
 runtime:
   domain: account-v1
   filename: account-v1.jar
-  apiIDkey: 
-    - account.api.id
+  apiIDkeys: 
+    account.api.id: account
   runtimeVersion: 4.4.0
   worker:
     type: Micro
@@ -55,6 +56,12 @@ policies:
  message-logging:
 
 # アラート
+# - jwt-validation
+# - rate-limiting-sla-based
+# - api-response-time
+# - api-response-code-500
+# - api-response-code-400
+# - api-request-count
 alerts:
  - jwt-validation
  - rate-limiting-sla-based
@@ -64,6 +71,12 @@ alerts:
  - api-request-count
 
 # ランタイムアラート
+# - cpu
+# - deployment-failed
+# - memory
+# - worker-unresponsive
+# - application-notification
+# - event-threshold-exceeded
 runtimeAlerts:
  - cpu
  - deployment-failed

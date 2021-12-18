@@ -11,9 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.MultiPart;
@@ -36,6 +33,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * アプリケーション検索機能
+	 * 
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -47,9 +45,10 @@ public class CloudhubAPICaller {
 		ApplicationResponse[] res = HttpClientUtil.makeResponse(resbody, ApplicationResponse[].class);
 		return res;
 	}
-	
+
 	/**
 	 * アプリケーション検索機能
+	 * 
 	 * @param domain アプリケーション名
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
@@ -57,7 +56,7 @@ public class CloudhubAPICaller {
 	public ApplicationResponse findApplication(String domain) throws AppException {
 
 		ApplicationResponse[] applications = findApplication();
-		for (ApplicationResponse application: applications) {
+		for (ApplicationResponse application : applications) {
 			if (StringUtils.equals(domain, application.getDomain())) {
 				return application;
 			}
@@ -67,16 +66,18 @@ public class CloudhubAPICaller {
 
 	/**
 	 * アプリケーション登録機能
+	 * 
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public ApplicationResponse saveApplication() throws AppException {
+	public ApplicationResponse saveApplication(String domain, Map<String, String> apiIds) throws AppException {
 
-		ApplicationRequest application = new ApplicationRequest();
+		ApplicationRequest application = new ApplicationRequest(domain, apiIds);
 		log.debug("file path : {}", Const.APPLICATION_FILE_PATH);
 		Path inpath = Paths.get(Const.APPLICATION_FILE_PATH);
 		File applicationfile = inpath.toFile();
-		log.debug("Mule Application File Path : {} {} {}", applicationfile.getAbsolutePath(), applicationfile.exists(), applicationfile.getName());
+		log.debug("Mule Application File Path : {} {} {}", applicationfile.getAbsolutePath(), applicationfile.exists(),
+				applicationfile.getName());
 		FileDataBodyPart fileDataBodyPart = new FileDataBodyPart("file", applicationfile,
 				MediaType.APPLICATION_OCTET_STREAM_TYPE);
 		fileDataBodyPart.setContentDisposition(
@@ -99,16 +100,18 @@ public class CloudhubAPICaller {
 
 	/**
 	 * アプリケーション更新機能
+	 * 
 	 * @param domain ドメイン名
 	 * @return 更新結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public ApplicationResponse updateApplication(String domain) throws AppException {
+	public ApplicationResponse updateApplication(String domain, Map<String, String> apiIds) throws AppException {
 
-		ApplicationRequestForUpdate application = new ApplicationRequestForUpdate();
+		ApplicationRequestForUpdate application = new ApplicationRequestForUpdate(apiIds);
 		Path inpath = Paths.get(Const.APPLICATION_FILE_PATH);
 		File applicationfile = inpath.toFile();
-		log.debug("Mule Application File Path : {} {} {}", applicationfile.getAbsolutePath(), applicationfile.exists(), applicationfile.getName());
+		log.debug("Mule Application File Path : {} {} {}", applicationfile.getAbsolutePath(), applicationfile.exists(),
+				applicationfile.getName());
 		FileDataBodyPart fileDataBodyPart = new FileDataBodyPart("file", applicationfile,
 				MediaType.APPLICATION_OCTET_STREAM_TYPE);
 		fileDataBodyPart.setContentDisposition(
@@ -119,7 +122,7 @@ public class CloudhubAPICaller {
 				.field("appInfoJson", HttpClientUtil.toJson(application), MediaType.APPLICATION_JSON_TYPE)
 				.bodyPart(fileDataBodyPart);
 		multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
-		
+
 		// リクエスト送信
 		String path = String.format(Const.APPLICATION_END_POINT, "/", domain);
 		String resbody = HttpClientUtil.sendRequestForMultipart(path, Const.PUT, multiPart);
@@ -131,6 +134,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * アプリケーション削除機能
+	 * 
 	 * @param domain アプリケーション名
 	 * @return 削除結果
 	 * @throws AppException アプリケーション例外
@@ -148,6 +152,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * ランタイムアラート検索機能
+	 * 
 	 * @param applicationName アプリケーション名
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
@@ -163,6 +168,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * ランタイムアラート作成処理
+	 * 
 	 * @param alertType アプリケーション名
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
@@ -183,6 +189,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * ランタイムアラート登録処理
+	 * 
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -199,6 +206,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * ランタイムアラート削除機能
+	 * 
 	 * @param alertId ランタイムアラートID
 	 * @return 削除結果
 	 * @throws AppException アプリケーション例外
@@ -217,6 +225,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * ランタイムアラート削除機能
+	 * 
 	 * @return 削除結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -237,6 +246,7 @@ public class CloudhubAPICaller {
 
 	/**
 	 * アセット検索機能
+	 * 
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
 	 */

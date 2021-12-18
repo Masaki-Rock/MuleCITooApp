@@ -215,9 +215,10 @@ public class HttpClientUtil {
 		log.debug("statusLine. {}", res);
 		return res;
 	}
-	
-	public static String sendRequestForMultipart(String urlParam, String method, MultiPart multiPart) throws AppException {
-		
+
+	public static String sendRequestForMultipart(String urlParam, String method, MultiPart multiPart)
+			throws AppException {
+
 		// リクエスト送信
 		log.debug("target path. {}　: {}", method, urlParam);
 		ClientConfig config = new DefaultClientConfig();
@@ -229,23 +230,23 @@ public class HttpClientUtil {
 			response = resource.type("multipart/form-data")
 					.header("Authorization", "Bearer " + new AccessManagementAPICaller().getAccessToken())
 					.header("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID)
-					.header("X-ANYPNT-ENV-ID", Const.DEV_ENVIRONMENT_ID)
+					.header("X-ANYPNT-ENV-ID", Const.ENVIRONMENT_ID)
 					.post(ClientResponse.class, multiPart);
 		}
 		if (StringUtils.equals(Const.PUT, method)) {
 			response = resource.type("multipart/form-data")
 					.header("Authorization", "Bearer " + new AccessManagementAPICaller().getAccessToken())
 					.header("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID)
-					.header("X-ANYPNT-ENV-ID", Const.DEV_ENVIRONMENT_ID)
+					.header("X-ANYPNT-ENV-ID", Const.ENVIRONMENT_ID)
 					.put(ClientResponse.class, multiPart);
 		}
 		String res = HttpClientUtil.getStringFromInputStream(response.getEntityInputStream());
 		log.debug("response body. {}", format(res));
 		client.destroy();
-		
+
 		return res;
 	}
-	
+
 	public static String getStringFromInputStream(InputStream is) {
 		BufferedReader br = null;
 		final StringBuilder sb = new StringBuilder();
@@ -290,7 +291,7 @@ public class HttpClientUtil {
 	public static Map<String, String> makeAccessTokenHeaderforCloudHubAPI() throws AppException {
 		Map<String, String> headers = makeAccessTokenHeader();
 		headers.put("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID);
-		headers.put("X-ANYPNT-ENV-ID", Const.DEV_ENVIRONMENT_ID);
+		headers.put("X-ANYPNT-ENV-ID", Const.ENVIRONMENT_ID);
 		return headers;
 	}
 

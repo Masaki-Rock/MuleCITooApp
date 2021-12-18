@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
-
 @SuppressWarnings("unchecked")
 public class Const {
 
@@ -25,7 +24,7 @@ public class Const {
 
 	public static final String EXCHANGE_ASSET_END_POINT = ANYPOINT_END_POINT
 			+ "/exchange/api/v2/assets/search?organizationId=%s&search=%s";
-	
+
 	public static final String API_ASSET_END_POINT = ANYPOINT_END_POINT
 			+ "/apimanager/api/v1/organizations/%s/apiSpecs?latestVersionsOnly=true&limit=50&offset=0&searchTerm=acc";
 
@@ -57,16 +56,24 @@ public class Const {
 	public static final String DELETE = "DELETE";
 
 	public static String CONFIG_YAML_FILE_PATH = "config.yaml";
-	
+
 	public static String PROJECT_YAML_FILE_PATH = "project.yaml";
-	
+
 	public static String APPLICATION_FILE_PATH;
 
-	public static String ENV;
-	
+	public static String BUSSINES_GROUP_NAME;
+
+	public static String ENVIRONMENT_NAME;
+
+	public static Map<String, Object> BUSSINES_GROUPS;
+
 	public static String ORGANIZATION_ID;
 
-	public static String DEV_ENVIRONMENT_ID;
+	public static String ENVIRONMENT_ID;
+
+	public static String ENVIRONMENT_CLIENT_ID;
+
+	public static String ENVIRONMENT_CLIENT_SECRET;
 
 	public static String CLIENT_ID;
 
@@ -76,44 +83,40 @@ public class Const {
 
 	public static String ACCESS_TOKEN;
 
-	public static String ASSET_ID;
-
-	public static String API_INSTANCE_LABEL;
-	
 	public static String DOMAIN;
-	
-	public static String API_ID_KEY;
-	
-	public static Integer API_ID;
-	
+
+	public static Map<String, Map<String, String>> API_INSTANCES;
+
+	public static Map<String, String> API_ID_KEYS;
+
 	public static String RUNTIME_VERSION;
-	
+
 	public static String WORKER_TYPE;
-	
+
 	public static Integer WORKERS;
-	
+
 	public static String REGION;
-	
+
 	public static Map<String, String> RUNTIME_PROPERTIES;
-	
+
 	public static Boolean AUTOMATICALLY_RESTART;
-	
+
 	public static Boolean PERSISTENT_QUEUES;
-	
+
 	public static Boolean USE_OBJECT_STORE_V2;
-	
+
 	public static Boolean ENABLE_MONITORING;
-	
+
 	public static List<Map<String, Object>> TIERS;
-	
-	public static Map<String,Object> POLICIES;
-	
+
+	public static Map<String, Object> POLICIES;
+
 	public static List<String> ALERTS;
-	
+
 	public static List<String> RUNTIME_ALERTS;
-	
+
 	public static List<String> ALERT_RECIPIENT_USER_IDS;
-	
+
 	public static List<Map<String, Object>> ALERT_RECIPIENTS;
 
 	static {
@@ -136,12 +139,8 @@ public class Const {
 		GRANT_TYPE = (String) connApp.get("grantType");
 
 		// 組織情報
-		Map<String, Object> org = (Map<String, Object>) commonConf.get("organization");
-		List<Map<String, Object>> bussinesGroups = (List<Map<String, Object>>) org.get("bussinesGroup");
-		
-		ORGANIZATION_ID = (String) org.get("organizationId");
-		DEV_ENVIRONMENT_ID = (String) env.get("deveper");
-		
+		BUSSINES_GROUPS = (Map<String, Object>) commonConf.get("organization");
+
 		// プロジェクトコンフィグファイル
 		Map<String, Object> proj = (Map<String, Object>) commonConf.get("project");
 		Map<String, Object> conf = (Map<String, Object>) proj.get("config");
@@ -159,19 +158,25 @@ public class Const {
 		System.out.println("reading priject config file path : " + input.toAbsolutePath());
 		Map<String, Object> projectConf = (Map<String, Object>) project.loadAs(in, Map.class);
 
-		// 環境
-		ENV = (String) projectConf.get("env");
-		
+		// 環境情報
+		BUSSINES_GROUP_NAME = (String) projectConf.get("bussinesGroupName");
+		ENVIRONMENT_NAME = (String) projectConf.get("environmentName");
+
+		Map<String, Object> bg = (Map<String, Object>) BUSSINES_GROUPS.get(BUSSINES_GROUP_NAME);
+		ORGANIZATION_ID = (String) bg.get("id");
+		Map<String, Object> env = (Map<String, Object>) bg.get(ENVIRONMENT_NAME);
+		ENVIRONMENT_ID = (String) env.get("id");
+		ENVIRONMENT_CLIENT_ID = (String) env.get("clientID");
+		ENVIRONMENT_CLIENT_SECRET = (String) env.get("clientSercret");
+
 		// APIインスタンス情報
-		Map<String, Object> api = (Map<String, Object>) projectConf.get("apiInstance");
-		ASSET_ID = (String) api.get("assetId");
-		API_INSTANCE_LABEL = (String) api.get("apiInstanceLabel");
+		API_INSTANCES = (Map<String, Map<String, String>>) projectConf.get("apiInstances");
 
 		// ランタイム
 		Map<String, Object> runtime = (Map<String, Object>) projectConf.get("runtime");
 		DOMAIN = (String) runtime.get("domain");
 		APPLICATION_FILE_PATH = (String) runtime.get("filename");
-		API_ID_KEY = (String) runtime.get("apiIDkey");
+		API_ID_KEYS = (Map<String, String>) runtime.get("apiIDkeys");
 		RUNTIME_VERSION = (String) runtime.get("runtimeVersion");
 		Map<String, Object> worker = (Map<String, Object>) runtime.get("worker");
 		WORKER_TYPE = (String) worker.get("type");
@@ -182,23 +187,23 @@ public class Const {
 		PERSISTENT_QUEUES = (Boolean) runtime.get("persistentQueues");
 		USE_OBJECT_STORE_V2 = (Boolean) runtime.get("useObjectStorev2");
 		ENABLE_MONITORING = (Boolean) runtime.get("enableMonitoring");
-		
+
 		// SLA層情報
 		TIERS = (List<Map<String, Object>>) projectConf.get("tiers");
-		
+
 		// ポリシーリスト
-		POLICIES = (Map<String,Object>) projectConf.get("policies");
-		
+		POLICIES = (Map<String, Object>) projectConf.get("policies");
+
 		// アラートリスト
 		ALERTS = (List<String>) projectConf.get("alerts");
-				
+
 		// ランタイムアラートリスト
 		RUNTIME_ALERTS = (List<String>) projectConf.get("runtimeAlerts");
-		
+
 		// アラート受信者
 		ALERT_RECIPIENTS = (List<Map<String, Object>>) projectConf.get("alertRecipients");
 		ALERT_RECIPIENT_USER_IDS = new ArrayList<String>();
-		for (Map<String, Object> user: ALERT_RECIPIENTS) {
+		for (Map<String, Object> user : ALERT_RECIPIENTS) {
 			ALERT_RECIPIENT_USER_IDS.add((String) user.get("userId"));
 		}
 	}
