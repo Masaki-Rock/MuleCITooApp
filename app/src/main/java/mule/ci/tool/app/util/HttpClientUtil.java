@@ -1,6 +1,7 @@
 package mule.ci.tool.app.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +16,8 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -71,9 +74,9 @@ public class HttpClientUtil {
 
 		return sendRequestForJson(urlParam, method, body, makeAccessTokenHeaderforCloudHubAPI());
 	}
-
+	
 	/**
-	 * CloudHubAPI用RESTAPI送信処理
+	 * GitHub用RESTAPI送信処理
 	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
@@ -81,10 +84,9 @@ public class HttpClientUtil {
 	 * @return レスポンスボディー
 	 * @throws AppException アプリケーション例外
 	 */
-	public static String sendRequestForMultipartAndCloudHubAPI(String urlParam, String method, String body,
-			String boundary) throws AppException {
+	public static String sendRequestforGitHub(String urlParam, String method, Object body) throws AppException {
 
-		return sendRequestForMutipart(urlParam, method, body, makeAccessTokenHeaderforCloudHubAPI(), boundary);
+		return sendRequestForJson(urlParam, method, body, makeAccessTokenHeaderforGithub());
 	}
 
 	/**
@@ -160,36 +162,35 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * RESTAPI送信処理
+	 * バイナリファイルリクエスト送信処理
 	 * 
 	 * @param urlParam URLパス
 	 * @param method   HTTPメソッド
-	 * @param body     リクエストボディー
-	 * @param headers  ヘッダー
+	 * @param file     アップロードファイルデータ
 	 * @return レスポンスボディー
 	 * @throws AppException アプリケーション例外
 	 */
-	public static String sendRequestForMutipart(String urlParam, String method, String body,
-			Map<String, String> headers, String boundary) throws AppException {
-		StringEntity entity = null;
-		if (body != null) {
-			entity = new StringEntity(body, "UTF-8");
-			entity.setContentType("multipart/form-data");
-		}
-		log.debug("target path. {}　: {}", method, urlParam);
-		log.debug("headers. {}", headers);
-		log.debug("request body. {}", body);
+	public static String sendRequestWithFile(String urlParam, String method, File file) throws AppException {
+		
+		Map<String, String> headers = makeAccessTokenHeaderforGithub();
+		
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(120000).setSocketTimeout(120000)
 				.setConnectionRequestTimeout(120000).build();
+		
+	    log.debug("target path. {}　: {}", method, urlParam);
+		log.debug("headers. {}", headers);
+		log.debug("upload fine name is {}", file.getName());
+	    FileEntity entity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
 		HttpUriRequest httpUriRequest = RequestBuilder.create(method).setConfig(requestConfig)
-				.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary).setEntity(entity)
+				.setHeader("Content-Type", "application/zip").setEntity(entity)
 				.setUri(urlParam).build();
 		if (headers != null) {
 			for (Map.Entry<String, String> header : headers.entrySet()) {
 				httpUriRequest.setHeader(header.getKey(), header.getValue());
 			}
 		}
+	    
 		CloseableHttpResponse response = null;
 		try {
 			response = httpClient.execute(httpUriRequest);
@@ -215,7 +216,57 @@ public class HttpClientUtil {
 		log.debug("statusLine. {}", res);
 		return res;
 	}
-
+	
+	/**
+	 * ファイルダウンロード処理
+	 * 
+	 * @param urlParam URLパス
+	 * @param method   HTTPメソッド
+	 * @param headers  ヘッダー
+	 * @return バイナリーファイルデータ
+	 * @throws AppException アプリケーション例外
+	 */
+	public static byte[] sendRequestForDownload(String urlParam, String method) throws AppException {
+		
+//		Map<String, String> headers = makeAccessTokenHeaderforGithub();
+		
+		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(120000).setSocketTimeout(120000)
+				.setConnectionRequestTimeout(120000).build();
+		
+	    log.debug("target path. {}　: {}", method, urlParam);
+	    
+		HttpUriRequest httpUriRequest = RequestBuilder.create(method).setConfig(requestConfig)
+				.setUri(urlParam).build();
+	    
+		CloseableHttpResponse response = null;
+		try {
+			response = httpClient.execute(httpUriRequest);
+		} catch (ClientProtocolException e) {
+			throw new AppException(e);
+		} catch (IOException e) {
+			throw new AppException(e);
+		}
+		HttpEntity responseEntity = response.getEntity();
+		if (responseEntity == null) {
+			return new byte[0];
+		}
+		try {
+			log.debug("success file download.");
+			return EntityUtils.toByteArray(responseEntity);
+		} catch (IOException e) {
+			throw new AppException(e);
+		}
+	}
+	
+	/**
+	 * マルチパートリクエスト送信処理
+	 * @param urlParam URLパス
+	 * @param method   HTTPメソッド
+	 * @param multiPart マルチパート情報
+	 * @return レスポンス結果
+	 * @throws AppException アプリケーション例外
+	 */
 	public static String sendRequestForMultipart(String urlParam, String method, MultiPart multiPart)
 			throws AppException {
 
@@ -283,7 +334,7 @@ public class HttpClientUtil {
 	}
 
 	/**
-	 * アクセストークンヘッダー
+	 * アクセストークンヘッダー（CloudHubAPI用）
 	 * 
 	 * @return ヘッダー情報
 	 * @throws AppException アプリケーション例外
@@ -292,6 +343,18 @@ public class HttpClientUtil {
 		Map<String, String> headers = makeAccessTokenHeader();
 		headers.put("X-ANYPNT-ORG-ID", Const.ORGANIZATION_ID);
 		headers.put("X-ANYPNT-ENV-ID", Const.ENVIRONMENT_ID);
+		return headers;
+	}
+	
+	/**
+	 * アクセストークンヘッダー(GitHub)
+	 * 
+	 * @return ヘッダー情報
+	 * @throws AppException アプリケーション例外
+	 */
+	public static Map<String, String> makeAccessTokenHeaderforGithub() throws AppException {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("Authorization", "Bearer " + Const.GITHUB_ACCESS_TOKEN);
 		return headers;
 	}
 

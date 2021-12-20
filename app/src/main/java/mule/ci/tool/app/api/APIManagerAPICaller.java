@@ -75,6 +75,8 @@ public class APIManagerAPICaller {
 	/**
 	 * APIインスタンス作成機能
 	 * 
+	 * @param assetId アセットID
+	 * @param instanceLabel インスタンスラベル
 	 * @return 登録結果
 	 * @throws AppException アプリケーション例外
 	 */
@@ -218,6 +220,7 @@ public class APIManagerAPICaller {
 	/**
 	 * SLA層削除機能
 	 * 
+	 * @param environmentApiId APIインスタンスID
 	 * @throws AppException アプリケーション例外
 	 */
 	public void deleteSLATiers(String environmentApiId) throws AppException {
@@ -279,6 +282,7 @@ public class APIManagerAPICaller {
 	/**
 	 * ポリシー登録機能
 	 * 
+	 * @param environmentApiId APIインスタンスID
 	 * @throws AppException アプリケーション例外
 	 */
 	public void savePolicies(String environmentApiId) throws AppException {
@@ -312,6 +316,7 @@ public class APIManagerAPICaller {
 	/**
 	 * ポリシー削除機能
 	 * 
+	 * @param environmentApiId APIインスタンスID
 	 * @throws AppException アプリケーション例外
 	 */
 	public void deletePolicies(String environmentApiId) throws AppException {
@@ -373,6 +378,8 @@ public class APIManagerAPICaller {
 	/**
 	 * アラート登録機能
 	 * 
+	 * @param environmentApiId APIインスタンスID
+	 * @param apiInstanceName APIインスタンス名
 	 * @throws AppException アプリケーション例外
 	 */
 	public void saveAlerts(String environmentApiId, String apiInstanceName) throws AppException {

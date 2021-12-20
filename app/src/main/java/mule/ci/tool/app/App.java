@@ -5,6 +5,11 @@ package mule.ci.tool.app;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
@@ -20,9 +25,11 @@ import org.slf4j.LoggerFactory;
 import mule.ci.tool.app.api.APIManagerAPICaller;
 import mule.ci.tool.app.api.CloudhubAPICaller;
 import mule.ci.tool.app.api.ExchangeAPICaller;
+import mule.ci.tool.app.api.GithubAPICaller;
 import mule.ci.tool.app.api.model.APIAssetsResponse;
 import mule.ci.tool.app.api.model.ApplicationResponse;
 import mule.ci.tool.app.api.model.ExchangeAssetResponse;
+import mule.ci.tool.app.api.model.GithubReleaseResponse;
 import mule.ci.tool.app.util.AppException;
 import mule.ci.tool.app.util.Const;
 
@@ -79,8 +86,16 @@ public class App {
 		options.addOption("update", true, "to update. <all|apiInstance|application>");
 		options.addOption("delete", true,
 				"to delete. <all|apiInstance|slaTiers|policies|alerts|application|runtimeAlerts>");
-		options.addOption("config", true, "Specify the location of the project folder.");
-		options.addOption("h", false, "Show all menue.");
+		options.addOption("git-upload", false,"Upload the application file to the release folder.");
+		options.addOption("git-download", false,"Download the application file from the release folder.");
+		options.addOption("git-release", false,"Release the application files in the release folder.");
+		options.addOption("config", true, "Specifying the path of the project configuration file.");
+		options.addOption("help", false, "Show all menue.");
+		options.addOption("org", true, "Business Group settings.");
+		options.addOption("env", true, "Environment settings.");
+		options.addOption("type", true, "Worker size setting.");
+		options.addOption("workers", true, "Worker amount setting.");
+		options.addOption("git-app", true, "Specify the github application file.");
 		return options;
 	}
 
@@ -92,16 +107,63 @@ public class App {
 	 */
 	private static void taskControler(CommandLine line) throws AppException {
 
+		executeSettingsMenue(line);
+		executeDeleteMenue(line);
+		executeSaveMenue(line);
+		executeUpdateMenue(line);
+		if (line.hasOption("all")) {
+			log.info("all process start!!");
+			APIAssetsResponse param = new APIManagerAPICaller().findAPIInstance();
+			apiIds = param.getApiIds();
+			init();
+			log.info("save process finished!!");
+		}
+		executeGithubMenue(line);
+		if (line.hasOption("help")) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("Mule CD Tool", setOptions());
+		}
+	}
+	private static void executeSettingsMenue(CommandLine line) throws AppException {
 		if (line.hasOption("config")) {
-			log.info("setting config start!!");
 			String projectpath = line.getOptionValue("config");
-			Path projectfile = Paths.get(projectpath + "project-dev.yaml");
+			Path projectfile = Paths.get(projectpath);
+			log.info("Project file path is {}", projectpath);
 			if (!projectfile.toFile().exists()) {
-				throw new AppException(String.format("Project file does not exist. {}", projectfile.toString()));
+				throw new AppException(String.format("{} Project file does not exist.", projectfile.toString()));
 			}
 			Const.PROJECT_YAML_FILE_PATH = projectfile.toString();
-			log.info("setting config finished!!");
+			Const.setProjectSettings();
 		}
+		if (line.hasOption("org")) {
+			String bussinesGroupName = line.getOptionValue("org");
+			Const.BUSSINES_GROUP_NAME = bussinesGroupName;
+			Const.setOrganization();
+			log.info("Bussines Group Name is {}.", Const.BUSSINES_GROUP_NAME);
+		}
+		if (line.hasOption("env")) {
+			String environmentName = line.getOptionValue("env");
+			Const.ENVIRONMENT_NAME = environmentName;
+			Const.setOrganization();
+			log.info("Environment Name is {}.", Const.ENVIRONMENT_NAME);
+		}
+		if (line.hasOption("type")) {
+			String workerType = line.getOptionValue("type");
+			Const.WORKER_TYPE = workerType;
+			log.info("Worker size is {}.", Const.WORKER_TYPE);
+		}
+		if (line.hasOption("workers")) {
+			String workers = line.getOptionValue("workers");
+			Const.WORKERS = Integer.valueOf(workers);
+			log.info("Workers is {}.", Const.WORKERS);
+		}
+		if (line.hasOption("git-app")) {
+			String filePath = line.getOptionValue("git-app");
+			Const.GITHUB_APPLICATION_FILE_PATH = filePath;
+			log.info("Github Application file is {}.", filePath);
+		}
+	}
+	private static void executeDeleteMenue(CommandLine line) throws AppException {
 		if (line.hasOption("delete")) {
 			log.info("delete process start!!");
 			String taskname = line.getOptionValue("delete");
@@ -132,6 +194,8 @@ public class App {
 			}
 			log.info("delete process finished!!");
 		}
+	}
+	private static void executeSaveMenue(CommandLine line) throws AppException {
 		if (line.hasOption("save")) {
 			log.info("save process start!!");
 			String taskname = line.getOptionValue("save");
@@ -167,6 +231,8 @@ public class App {
 			}
 			log.info("save process finished!!");
 		}
+	}
+	private static void executeUpdateMenue(CommandLine line) throws AppException {
 		if (line.hasOption("update")) {
 			log.info("update process start!!");
 			String taskname = line.getOptionValue("update");
@@ -184,18 +250,25 @@ public class App {
 			if (StringUtils.equals("apiInstance", taskname)) {
 				updateAPIInstance();
 			}
-			log.info("save process finished!!");
+			log.info("update process finished!!");
 		}
-		if (line.hasOption("all")) {
-			log.info("all process start!!");
-			APIAssetsResponse param = new APIManagerAPICaller().findAPIInstance();
-			apiIds = param.getApiIds();
-			init();
-			log.info("save process finished!!");
+	}
+	private static void executeGithubMenue(CommandLine line) throws AppException {
+		
+		if (line.hasOption("git-upload")) {
+			log.info("git-upload process start!!");
+			uploadApplicationFile();
+			log.info("git-upload process finished!!");
 		}
-		if (line.hasOption("h")) {
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("Mule CD Tool", setOptions());
+		if (line.hasOption("git-download")) {
+			log.info("git-download process start!!");
+			downloadApplicationFile();
+			log.info("git-download process finished!!");
+		}
+		if (line.hasOption("git-release")) {
+			log.info("git-release process start!!");
+			releaseApplicationFile();
+			log.info("git-release process finished!!");
 		}
 	}
 
@@ -217,6 +290,26 @@ public class App {
 		saveAlerts();
 		deleteRuntimeAlerts();
 		saveRuntimeAlerts();
+		if (existApplication()) {
+			updateApplication();
+		} else {
+			saveApplication();
+		}
+	}
+	
+	/**
+	 * 初期メソッド
+	 * 
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void updateMuleAPI() throws AppException {
+
+		if (apiIds == null || apiIds.isEmpty()) {
+			saveAPIInstance();
+			saveSLATiers();
+			savePolicies();
+			saveAlerts();
+		}
 		if (existApplication()) {
 			updateApplication();
 		} else {
@@ -354,8 +447,7 @@ public class App {
 			return;
 		APIManagerAPICaller caller = new APIManagerAPICaller();
 		for (String apiInstanceName : Const.API_INSTANCES.keySet()) {
-			Map<String, String> ins = Const.API_INSTANCES.get(apiInstanceName);
-			caller.saveAlerts(apiIds.get(apiInstanceName), ins.get("apiInstanceLabel"));
+			caller.saveAlerts(apiIds.get(apiInstanceName), apiInstanceName);
 		}
 	}
 
@@ -382,7 +474,7 @@ public class App {
 	public static Boolean existApplication() throws AppException {
 
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		ApplicationResponse application = caller.findApplication(Const.DOMAIN);
+		ApplicationResponse application = caller.findApplication(Const.ENV_DOMAIN);
 		if (application == null) {
 			return false;
 		}
@@ -399,7 +491,7 @@ public class App {
 		APIManagerAPICaller apicaller = new APIManagerAPICaller();
 		APIAssetsResponse res = apicaller.findAPIInstance();
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.saveApplication(Const.DOMAIN, res.getApiIds());
+		caller.saveApplication(Const.ENV_DOMAIN, res.getApiIds());
 	}
 
 	/**
@@ -412,7 +504,7 @@ public class App {
 		APIManagerAPICaller apicaller = new APIManagerAPICaller();
 		APIAssetsResponse res = apicaller.findAPIInstance();
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.updateApplication(Const.DOMAIN, res.getApiIds());
+		caller.updateApplication(Const.ENV_DOMAIN, res.getApiIds());
 	}
 
 	/**
@@ -423,7 +515,7 @@ public class App {
 	public static void deleteApplication() throws AppException {
 
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.deleteApplication(Const.DOMAIN);
+		caller.deleteApplication(Const.ENV_DOMAIN);
 	}
 
 	/**
@@ -446,5 +538,65 @@ public class App {
 
 		CloudhubAPICaller caller = new CloudhubAPICaller();
 		caller.deleteRuntimeAlerts();
+	}
+	
+	/**
+	 * リリースフォルダへアプリケーションファイルアップロード機能
+	 * 
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void uploadApplicationFile() throws AppException {
+
+		GithubAPICaller caller = new GithubAPICaller();
+		GithubReleaseResponse release = caller.getRelease(Const.GITHUB_RELEASE_NAME);
+		if (release == null) {
+			release = caller.saveRelease(Const.GITHUB_RELEASE_NAME);
+		}
+		Calendar cl = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
+		String filename = String.format(Const.GITHUB_APPLICATION_FILE_NAME, sdf.format(cl.getTime()));
+		caller.saveAssets(release.getId(), Const.APPLICATION_FILE_PATH, filename);
+	}
+	
+	/**
+	 * アプリケーションダウンロード機能
+	 * 
+	 * @return ダウンロードファイル名
+	 * @throws AppException アプリケーション例外
+	 */
+	public static String downloadApplicationFile() throws AppException {
+
+		GithubAPICaller caller = new GithubAPICaller();
+		List<Map<String, Object>> assets = caller.findAsset(Const.GITHUB_RELEASE_NAME);
+		List<String> fnamelist = new ArrayList<String>();
+		String expr = String.format(Const.GITHUB_APPLICATION_FILE_NAME, "[\\d]+\\");
+		for (Map<String, Object> asset: assets) {
+			String filename = (String) asset.get("name");
+			if (filename.matches(expr)) {
+				fnamelist.add(filename);
+			}
+		}
+		Collections.reverse(fnamelist);
+		if (fnamelist.isEmpty()) {
+			return null;
+		}
+		String filepath = fnamelist.get(0);
+		if (StringUtils.isNoneBlank(Const.GITHUB_APPLICATION_FILE_PATH)) {
+			filepath = Const.GITHUB_APPLICATION_FILE_PATH;
+		}
+		caller.getAssets(Const.GITHUB_RELEASE_NAME, filepath, filepath);
+		return filepath;
+	}
+	/**
+	 * アプリケーションリリース機能
+	 * 
+	 * @throws AppException アプリケーション例外
+	 */
+	public static void releaseApplicationFile() throws AppException {
+
+		Const.APPLICATION_FILE_PATH = downloadApplicationFile();
+		APIAssetsResponse param = new APIManagerAPICaller().findAPIInstance();
+		apiIds = param.getApiIds();
+		updateMuleAPI();
 	}
 }

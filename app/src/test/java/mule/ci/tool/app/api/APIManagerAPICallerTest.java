@@ -2,6 +2,7 @@ package mule.ci.tool.app.api;
 
 import java.util.Map;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +18,8 @@ public class APIManagerAPICallerTest {
 
 	private static final Logger log = LoggerFactory.getLogger(APIManagerAPICallerTest.class);
 
-	// @Test
-	public void getAPIInstance() throws AppException {
+	@Test
+	public void findAPIInstance() throws AppException {
 		APIManagerAPICaller caller = new APIManagerAPICaller();
 		caller.findAPIInstance();
 	}

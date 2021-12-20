@@ -22,7 +22,7 @@ public class CloudhubAPICallerTest {
 		APIManagerAPICaller apicaller = new APIManagerAPICaller();
 		APIAssetsResponse res = apicaller.findAPIInstance();
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.saveApplication(Const.DOMAIN, res.getApiIds());
+		caller.saveApplication(Const.ENV_DOMAIN, res.getApiIds());
 	}
 
 	// @Test
@@ -30,7 +30,7 @@ public class CloudhubAPICallerTest {
 		APIManagerAPICaller apicaller = new APIManagerAPICaller();
 		APIAssetsResponse res = apicaller.findAPIInstance();
 		CloudhubAPICaller caller = new CloudhubAPICaller();
-		caller.updateApplication(Const.DOMAIN, res.getApiIds());
+		caller.updateApplication(Const.ENV_DOMAIN, res.getApiIds());
 	}
 
 	// @Test
@@ -64,11 +64,6 @@ public class CloudhubAPICallerTest {
 		caller.deleteRuntimeAlerts();
 	}
 
-	/**
-	 * �A�J�E���g�����@�\�e�X�g
-	 * 
-	 * @throws AppException �A�v���P�[�V������O
-	 */
 	// @Test
 	public void findAcount() throws AppException {
 		CloudhubAPICaller caller = new CloudhubAPICaller();

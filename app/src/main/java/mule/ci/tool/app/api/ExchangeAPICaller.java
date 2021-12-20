@@ -15,12 +15,13 @@ public class ExchangeAPICaller {
 	/**
 	 * アセット検索機能
 	 * 
+	 * @param assetIｄ アセットID
 	 * @return 検索結果
 	 * @throws AppException アプリケーション例外
 	 */
-	public ExchangeAssetResponse findAsset(String assetID) throws AppException {
+	public ExchangeAssetResponse findAsset(String assetIｄ) throws AppException {
 
-		String path = String.format(Const.EXCHANGE_ASSET_END_POINT, Const.ORGANIZATION_ID, assetID);
+		String path = String.format(Const.EXCHANGE_ASSET_END_POINT, Const.ORGANIZATION_ID, assetIｄ);
 		String resbody = HttpClientUtil.sendRequest(path, Const.GET, null);
 
 		ExchangeAssetResponse[] res = HttpClientUtil.makeResponse(resbody, ExchangeAssetResponse[].class);

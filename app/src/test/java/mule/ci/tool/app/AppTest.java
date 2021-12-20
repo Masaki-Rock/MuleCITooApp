@@ -6,6 +6,7 @@ package mule.ci.tool.app;
 import org.junit.Test;
 
 import mule.ci.tool.app.util.AppException;
+import mule.ci.tool.app.util.Const;
 
 public class AppTest {
 
@@ -65,5 +66,26 @@ public class AppTest {
 	// @Test
 	public void deleteRuntimeAlerts() throws AppException {
 		App.deleteRuntimeAlerts();
+	}
+	
+	@Test
+	public void uploadApplicationFile() throws AppException {
+		App.uploadApplicationFile();
+	}
+	
+	@Test
+	public void downloadApplicationFile() throws AppException {
+		App.downloadApplicationFile();
+	}
+	
+	@Test
+	public void releaseApplicationFile() throws AppException {
+		App.releaseApplicationFile();
+	}
+	
+	@Test
+	public void releaseApplicationFileByAppName() throws AppException {
+		Const.GITHUB_APPLICATION_FILE_PATH = "account-1220034553.jar";
+		App.releaseApplicationFile();
 	}
 }

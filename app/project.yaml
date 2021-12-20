@@ -11,18 +11,18 @@ apiInstances:
 
 # ランタイム
 runtime:
-  domain: account-v1
+  domain: smpl-%s-account-v1
   filename: account-v1.jar
   apiIDkeys: 
-    account.api.id: account
+    api.id: account
   runtimeVersion: 4.4.0
   worker:
+    # type: <Micro|Small|Medium|Large|xLarge|xxLarge|4xLarge>
     type: Micro
     workers: 1
     region: us-east-1
   properties:
     anypoint.platform.analytics_base_uri: https://analytics-ingest.anypoint.mulesoft.com/
-    env: st
   automaticallyRestart: true
   persistentQueues: false
   enableMonitoring: true
@@ -100,3 +100,8 @@ alertRecipients:
    userId: fac27650-0433-4618-a613-4b171f1816bb
    lastName: Kimura
    firstName: Hanako
+
+# リリース管理名
+github:
+ releaseName: account-0.0.1
+ fileName: account-%s.jar

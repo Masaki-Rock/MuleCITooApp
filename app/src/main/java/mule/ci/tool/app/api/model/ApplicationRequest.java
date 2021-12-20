@@ -4,50 +4,62 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import mule.ci.tool.app.util.Const;
 
 public class ApplicationRequest {
+
+	private static final Logger log = LoggerFactory.getLogger(ApplicationRequest.class);
 
 	public ApplicationRequest(String domain, Map<String, String> apiIds) {
 
 		this.domain = domain;
 		this.muleVersion = new HashMap<String, Object>();
 		this.muleVersion.put("version", Const.RUNTIME_VERSION);
-		for (String key : Const.API_ID_KEYS.keySet()) {
-			if (apiIds.get(Const.API_ID_KEYS.get(key)) != null) {
-				this.properties.put(key, apiIds.get(Const.API_ID_KEYS.get(key)));
-				this.properties.put("anypoint.platform.client_id", Const.ENVIRONMENT_CLIENT_ID);
-				this.properties.put("anypoint.platform.client_secret", Const.ENVIRONMENT_CLIENT_SECRET);
+		if (apiIds != null) {
+			for (String key : Const.API_ID_KEYS.keySet()) {
+				if (apiIds.get(Const.API_ID_KEYS.get(key)) != null) {
+					this.properties.put(key, apiIds.get(Const.API_ID_KEYS.get(key)));
+					this.properties.put("anypoint.platform.client_id", Const.ENVIRONMENT_CLIENT_ID);
+					this.properties.put("anypoint.platform.client_secret", Const.ENVIRONMENT_CLIENT_SECRET);
+				}
 			}
 		}
+		this.properties.put("env", Const.ENVIRONMENT_NAME.toLowerCase());
 		for (String key : Const.RUNTIME_PROPERTIES.keySet()) {
 			this.properties.put(key, Const.RUNTIME_PROPERTIES.get(key));
 		}
 		Map<String, Object> workerType = new HashMap<String, Object>();
+		log.debug("vCore : {}", Const.WORKER_TYPE);
 		if (StringUtils.equals("Micro", Const.WORKER_TYPE)) {
 			workerType.put("name", "Micro");
 			workerType.put("weight", 0.1);
 			workerType.put("cpu", "0.1 vCores");
 			workerType.put("memory", "500 MB memory");
+			log.debug("vCore : {}", "Micro");
 		}
 		if (StringUtils.equals("Small", Const.WORKER_TYPE)) {
 			workerType.put("name", "Small");
 			workerType.put("weight", 0.2);
 			workerType.put("cpu", "0.2 vCores");
 			workerType.put("memory", "1 GB memory");
+			log.debug("vCore : {}", "Small");
 		}
 		if (StringUtils.equals("Medium", Const.WORKER_TYPE)) {
 			workerType.put("name", "Medium");
 			workerType.put("weight", 1.0);
 			workerType.put("cpu", "1 vCore");
 			workerType.put("memory", "1.5 GB memory");
+			log.debug("vCore : {}", "Medium");
 		}
 		if (StringUtils.equals("Large", Const.WORKER_TYPE)) {
 			workerType.put("name", "Large");
 			workerType.put("weight", 2.0);
 			workerType.put("cpu", "2 vCores");
 			workerType.put("memory", "3.5 GB memory");
+			log.debug("vCore : {}", "Large");
 		}
 		if (StringUtils.equals("xLarge", Const.WORKER_TYPE)) {
 			workerType.put("name", "xLarge");
@@ -67,9 +79,10 @@ public class ApplicationRequest {
 			workerType.put("cpu", "16 vCores");
 			workerType.put("memory", "32 GB memory");
 		}
-		workers = new HashMap<String, Object>();
-		workers.put("amount", 1);
-		workers.put("type", workerType);
+		this.workers = new HashMap<String, Object>();
+		this.workers.put("amount", Const.WORKERS);
+		log.debug("Workers : {}", Const.WORKERS);
+		this.workers.put("type", workerType);
 
 	}
 

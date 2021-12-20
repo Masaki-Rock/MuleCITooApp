@@ -44,7 +44,13 @@ public class Const {
 	public static final String RUNTIME_ALERT_END_POINT = ANYPOINT_END_POINT + "/cloudhub/api/v2/alerts%s%s";
 
 	public static final String COUDHUB_ACCOUNT_END_POINT = ANYPOINT_END_POINT + "/cloudhub/api/account";
-
+	
+	public static final String ASSETS_UPLOAD_END_POINT = "https://uploads.github.com/repos/%s/%s/releases/%s/assets?name=%s";
+	
+	public static final String ASSETS_DOWNLOAD_END_POINT = "https://github.com/%s/%s/releases/download/%s/%s";
+	
+	public static final String RELEASES_END_POINT = "https://api.github.com/repos/%s/%s/releases%s%s";
+		
 	public static final String GET = "GET";
 
 	public static final String POST = "POST";
@@ -85,6 +91,8 @@ public class Const {
 
 	public static String DOMAIN;
 
+	public static String ENV_DOMAIN;
+
 	public static Map<String, Map<String, String>> API_INSTANCES;
 
 	public static Map<String, String> API_ID_KEYS;
@@ -119,6 +127,18 @@ public class Const {
 
 	public static List<Map<String, Object>> ALERT_RECIPIENTS;
 
+	public static String GITHUB_ACCOUNT_ID;
+
+	public static String GITHUB_REPOSITORY_ID;
+	
+	public static String GITHUB_ACCESS_TOKEN;
+	
+	public static String GITHUB_RELEASE_NAME;
+
+	public static String GITHUB_APPLICATION_FILE_NAME;
+	
+	public static String GITHUB_APPLICATION_FILE_PATH;
+	
 	static {
 
 		Yaml common = new Yaml();
@@ -146,10 +166,32 @@ public class Const {
 		Map<String, Object> conf = (Map<String, Object>) proj.get("config");
 		PROJECT_YAML_FILE_PATH = (String) conf.get("path");
 
+		// GITHUB情報
+		Map<String, Object> github = (Map<String, Object>) commonConf.get("github");
+		GITHUB_ACCOUNT_ID = (String) github.get("accountID");
+		GITHUB_REPOSITORY_ID = (String) github.get("repositoryID");
+		GITHUB_ACCESS_TOKEN = (String) github.get("accessToken");
+				
+		setProjectSettings();
+	}
+	
+	public static void setOrganization() {
+		Map<String, Object> bg = (Map<String, Object>) BUSSINES_GROUPS.get(BUSSINES_GROUP_NAME);
+		ORGANIZATION_ID = (String) bg.get("id");
+		Map<String, Object> env = (Map<String, Object>) bg.get(ENVIRONMENT_NAME);
+		ENVIRONMENT_ID = (String) env.get("id");
+		ENVIRONMENT_CLIENT_ID = (String) env.get("clientID");
+		ENVIRONMENT_CLIENT_SECRET = (String) env.get("clientSercret");
+		
+		ENV_DOMAIN = String.format(DOMAIN,ENVIRONMENT_NAME.toLowerCase());
+	}
+	
+	public static void setProjectSettings() {
+
 		// プロジェクト毎の個別設定
 		Yaml project = new Yaml();
-		input = Paths.get(PROJECT_YAML_FILE_PATH);
-		in = null;
+		Path input = Paths.get(PROJECT_YAML_FILE_PATH);
+		InputStream in = null;
 		try {
 			in = Files.newInputStream(input);
 		} catch (IOException e) {
@@ -161,14 +203,7 @@ public class Const {
 		// 環境情報
 		BUSSINES_GROUP_NAME = (String) projectConf.get("bussinesGroupName");
 		ENVIRONMENT_NAME = (String) projectConf.get("environmentName");
-
-		Map<String, Object> bg = (Map<String, Object>) BUSSINES_GROUPS.get(BUSSINES_GROUP_NAME);
-		ORGANIZATION_ID = (String) bg.get("id");
-		Map<String, Object> env = (Map<String, Object>) bg.get(ENVIRONMENT_NAME);
-		ENVIRONMENT_ID = (String) env.get("id");
-		ENVIRONMENT_CLIENT_ID = (String) env.get("clientID");
-		ENVIRONMENT_CLIENT_SECRET = (String) env.get("clientSercret");
-
+		
 		// APIインスタンス情報
 		API_INSTANCES = (Map<String, Map<String, String>>) projectConf.get("apiInstances");
 
@@ -206,5 +241,11 @@ public class Const {
 		for (Map<String, Object> user : ALERT_RECIPIENTS) {
 			ALERT_RECIPIENT_USER_IDS.add((String) user.get("userId"));
 		}
+		
+		Map<String,String> github = (Map<String,String>) projectConf.get("github");
+		GITHUB_RELEASE_NAME = github.get("releaseName");
+		GITHUB_APPLICATION_FILE_NAME = github.get("fileName");
+		
+		setOrganization();
 	}
 }
