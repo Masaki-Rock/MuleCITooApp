@@ -86,16 +86,17 @@ public class App {
 		options.addOption("update", true, "to update. <all|apiInstance|application>");
 		options.addOption("delete", true,
 				"to delete. <all|apiInstance|slaTiers|policies|alerts|application|runtimeAlerts>");
-		options.addOption("git-upload", false,"Upload the application file to the release folder.");
-		options.addOption("git-download", false,"Download the application file from the release folder.");
-		options.addOption("git-release", false,"Release the application files in the release folder.");
+		options.addOption("gitupload", false,"Upload the application file to the release folder.");
+		options.addOption("gitdownload", false,"Download the application file from the release folder.");
+		options.addOption("gitrelease", false,"Release the application files in the release folder.");
 		options.addOption("config", true, "Specifying the path of the project configuration file.");
 		options.addOption("help", false, "Show all menue.");
 		options.addOption("org", true, "Business Group settings.");
 		options.addOption("env", true, "Environment settings.");
 		options.addOption("type", true, "Worker size setting.");
 		options.addOption("workers", true, "Worker amount setting.");
-		options.addOption("git-app", true, "Specify the github application file.");
+		options.addOption("gitfolder", true, "Specify the release folder.");
+		options.addOption("gitapp", true, "Specify the github application file.");
 		return options;
 	}
 
@@ -157,8 +158,13 @@ public class App {
 			Const.WORKERS = Integer.valueOf(workers);
 			log.info("Workers is {}.", Const.WORKERS);
 		}
-		if (line.hasOption("git-app")) {
-			String filePath = line.getOptionValue("git-app");
+		if (line.hasOption("gitfolder")) {
+			String foldername = line.getOptionValue("gitfolder");
+			Const.GITHUB_RELEASE_NAME = foldername;
+			log.info("Github Release folder is {}.", foldername);
+		}
+		if (line.hasOption("gitapp")) {
+			String filePath = line.getOptionValue("gitapp");
 			Const.GITHUB_APPLICATION_FILE_PATH = filePath;
 			log.info("Github Application file is {}.", filePath);
 		}
@@ -255,20 +261,20 @@ public class App {
 	}
 	private static void executeGithubMenue(CommandLine line) throws AppException {
 		
-		if (line.hasOption("git-upload")) {
-			log.info("git-upload process start!!");
+		if (line.hasOption("gitupload")) {
+			log.info("git Upload process start!!");
 			uploadApplicationFile();
-			log.info("git-upload process finished!!");
+			log.info("git Upload process finished!!");
 		}
-		if (line.hasOption("git-download")) {
-			log.info("git-download process start!!");
+		if (line.hasOption("gitdownload")) {
+			log.info("git Download process start!!");
 			downloadApplicationFile();
-			log.info("git-download process finished!!");
+			log.info("git Download process finished!!");
 		}
-		if (line.hasOption("git-release")) {
-			log.info("git-release process start!!");
+		if (line.hasOption("gitrelease")) {
+			log.info("git Release process start!!");
 			releaseApplicationFile();
-			log.info("git-release process finished!!");
+			log.info("git Release process finished!!");
 		}
 	}
 

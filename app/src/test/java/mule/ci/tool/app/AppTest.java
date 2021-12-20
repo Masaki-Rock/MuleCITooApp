@@ -23,12 +23,12 @@ public class AppTest {
 		App.existApplication();
 	}
 
-	@Test
+//	@Test
 	public void init() throws AppException {
 		App.init();
 	}
 
-	@Test
+//	@Test
 	public void deleteAll() throws AppException {
 		App.deleteAll();
 	}
@@ -78,7 +78,7 @@ public class AppTest {
 		App.downloadApplicationFile();
 	}
 	
-	@Test
+//	@Test
 	public void releaseApplicationFile() throws AppException {
 		App.releaseApplicationFile();
 	}
