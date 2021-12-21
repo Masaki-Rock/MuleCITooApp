@@ -139,6 +139,10 @@ public class Const {
 	
 	public static String GITHUB_APPLICATION_FILE_PATH;
 	
+	public static Boolean GITHUB_RELEASE_FLAG = true;
+	
+	public static String GITHUB_BRANCH = "";
+	
 	static {
 
 		Yaml common = new Yaml();

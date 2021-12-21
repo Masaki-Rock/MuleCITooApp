@@ -96,7 +96,10 @@ public class App {
 		options.addOption("type", true, "Worker size setting.");
 		options.addOption("workers", true, "Worker amount setting.");
 		options.addOption("gitfolder", true, "Specify the release folder.");
+		options.addOption("gitpre", true, "Specify the pre-release.");
+		options.addOption("gitbranch", true, "Specify the target brunch.");
 		options.addOption("gitapp", true, "Specify the github application file.");
+		options.addOption("gittoken", true, "Specify GITHUB_TOKEN..");
 		return options;
 	}
 
@@ -163,10 +166,27 @@ public class App {
 			Const.GITHUB_RELEASE_NAME = foldername;
 			log.info("Github Release folder is {}.", foldername);
 		}
+		if (line.hasOption("gitpre")) {
+			String preReleaseFlag = line.getOptionValue("gitpre");
+			if (StringUtils.isNoneBlank(preReleaseFlag)) {
+				Const.GITHUB_RELEASE_FLAG = false;
+			}
+			log.info("Github Pre-Release Flag is {}.", preReleaseFlag);
+		}
+		if (line.hasOption("gitbranch")) {
+			String branch = line.getOptionValue("gitbranch");
+			Const.GITHUB_BRANCH = branch;
+			log.info("Github Branch is {}.", branch);
+		}
 		if (line.hasOption("gitapp")) {
 			String filePath = line.getOptionValue("gitapp");
 			Const.GITHUB_APPLICATION_FILE_PATH = filePath;
 			log.info("Github Application file is {}.", filePath);
+		}
+		if (line.hasOption("gittoken")) {
+			String token = line.getOptionValue("gittoken");
+			Const.GITHUB_ACCESS_TOKEN = token;
+			log.info("Github token is setted.");
 		}
 	}
 	private static void executeDeleteMenue(CommandLine line) throws AppException {
@@ -556,7 +576,7 @@ public class App {
 		GithubAPICaller caller = new GithubAPICaller();
 		GithubReleaseResponse release = caller.getRelease(Const.GITHUB_RELEASE_NAME);
 		if (release == null) {
-			release = caller.saveRelease(Const.GITHUB_RELEASE_NAME);
+			release = caller.saveRelease(Const.GITHUB_RELEASE_NAME, Const.GITHUB_RELEASE_FLAG, Const.GITHUB_BRANCH);
 		}
 		Calendar cl = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
