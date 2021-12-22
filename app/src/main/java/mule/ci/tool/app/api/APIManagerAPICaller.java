@@ -44,7 +44,7 @@ public class APIManagerAPICaller {
 		String resbody = HttpClientUtil.sendRequest(path, Const.GET, null);
 
 		APIAssetsResponse res = HttpClientUtil.makeResponse(resbody, APIAssetsResponse.class);
-		log("getAPIInstance. {}", res);
+		log("findAPIInstance. {}", res);
 		return res;
 	}
 

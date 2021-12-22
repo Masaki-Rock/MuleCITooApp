@@ -330,7 +330,8 @@ public class App {
 	 */
 	public static void updateMuleAPI() throws AppException {
 
-		if (apiIds == null || apiIds.isEmpty()) {
+		log.debug("updateMuleAPI start!");
+		if (!existAPIInstance()) {
 			saveAPIInstance();
 			saveSLATiers();
 			savePolicies();
@@ -341,6 +342,7 @@ public class App {
 		} else {
 			saveApplication();
 		}
+		log.debug("updateMuleAPI finish!");
 	}
 
 	/**
@@ -360,10 +362,33 @@ public class App {
 	 * 
 	 * @throws AppException アプリケーション例外
 	 */
+	public static Boolean existAPIInstance() throws AppException {
+
+		log.debug("APIInstance existedeing check!");
+		if (apiIds == null || apiIds.isEmpty()) return false;
+		Boolean flg = true;
+		for (String apiInstanceName : Const.API_INSTANCES.keySet()) {
+			if (!apiIds.containsKey(apiInstanceName)) {
+				flg = false;
+			}
+		}
+		log.debug("APIInstance existedeing is {}.", flg);
+		return flg;
+	}
+	
+	/**
+	 * APIインスタンス登録機能
+	 * 
+	 * @throws AppException アプリケーション例外
+	 */
 	public static void saveAPIInstance() throws AppException {
 
 		APIManagerAPICaller caller = new APIManagerAPICaller();
 		for (String apiInstanceName : Const.API_INSTANCES.keySet()) {
+			log.debug("API Instance name is {}.", apiInstanceName);
+			if (apiIds != null && apiIds.containsKey(apiInstanceName)) {
+				continue;
+			}
 			Map<String, String> ins = (Map<String, String>) Const.API_INSTANCES.get(apiInstanceName);
 			caller.saveAPIInstance(ins.get("assetId"), ins.get("apiInstanceLabel"));
 		}
@@ -412,7 +437,7 @@ public class App {
 		if (apiIds == null || apiIds.isEmpty())
 			return;
 		APIManagerAPICaller caller = new APIManagerAPICaller();
-		for (String apiInstanceName : Const.API_INSTANCES.keySet()) {
+		for (String apiInstanceName : apiIds.keySet()) {
 			caller.saveSLATiers(apiIds.get(apiInstanceName));
 		}
 	}
@@ -622,7 +647,9 @@ public class App {
 
 		Const.APPLICATION_FILE_PATH = downloadApplicationFile();
 		APIAssetsResponse param = new APIManagerAPICaller().findAPIInstance();
+		log.debug("releaseApplicationFile-2");
 		apiIds = param.getApiIds();
+		log.debug("releaseApplicationFile-3");
 		updateMuleAPI();
 	}
 }
